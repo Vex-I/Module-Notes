@@ -1,0 +1,790 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[dutch]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{multicol}
+\usepackage{proof}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+
+\usepackage[most]{tcolorbox}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+	\def\svgwidth{\columnwidth}
+	\import{./figures/}{#1.pdf_tex}
+}
+
+\pdfsuppresswarningpagegroup=1
+
+\title{MA1100 Discrete Math Notes}
+\author{Nawwaf Sudi}
+\date{2025 | Y2S1}
+
+\begin{document}
+\begin{center}
+\Huge{MA1100 Discrete Math Notes}
+\end{center}
+
+
+
+\noindent \textbf{Nawwaf Sudi} \hfill \textbf{2025 | Y2S1}
+\paragraph{Preface}
+This is my notes for MA1100 Discrete Math that i took in my second year in NUS. This note is non-comprehensive, meaning that it discusses surface level course materials and common problem solving techniques wherever appropriate. One should use this note as a supplement to the course material, serving as a quick-referencefor both those taking the course or planning to in the future.
+This note follows the flow of the online lectures and textbook of the time, and as such might not be the best option for future curriculum, but the content should be the same. This is the reason why you might notice that this note doesn't contain much exercises and examples: The textbook already has them.
+\section{Mathematical Language and Proofs}
+This chapter's content has most likely been discussed quite extensively before university, and most of you most likely have a good sense of familiarity with it. As such, I'll focus more on the problems for this one.
+
+
+In Mathematics, any claims that you make requires a set of logical reasoning that back it up. This chapter is concerned with this mathematical language and the fundamental theory of proofs.We define the following:
+\begin{tcolorbox}[title=Definition]
+	\paragraph{Proposition,}
+	sometimes referred to as statement, is a statement that has exactly one truth value, either true or false, but not both. 
+\end{tcolorbox}
+For example, take $2 + 2 = 5$ as a statement Q. 
+As such, we can say that:
+\begin{align*}
+	Q \implies 2 + 2 &= 5 
+\end{align*}
+
+is false.
+\begin{tcolorbox}[title=Definition]
+	\paragraph{Predicate}is a form of a statement that has free variable(s) such that they can be either true or false, depending on the variable. Predicate is denoted by $P(x)$, where x is a free variable.
+\end{tcolorbox}
+Together, these two makes up the basic 'building blocks' of the first half of this course.
+
+
+
+\subsection{Connectives}
+To put it simply, connectives are a logical connection between two statement. It forms a 'compound statement' tha behaves the same way as any other statement. There are a couple of such connectives: disjunction($\vee$), conjunction($\wedge$), negation($\neg$), implication($\implies$) and bi-implication($\iff$). I'll leave implication and bi-implication towards the end of the chapter, as it is comparatively more complex than the first three.
+\subsubsection{Negation ($\neg$)}
+The negation of a statement can be thought of as the opposite of the statement. That is to say, if we were to have a statement $P$ that was true, $\neg P$ (read not p) is false. The opposite is also true: if $P$ were false, $\neg P$ would also be true.
+In a truth table:
+\begin{table}[htpb]
+	\centering
+	\caption{Truth table for $\neg$}
+	\label{tab:label}
+
+	\vspace{5pt}	
+	\begin{tabular}{c|c}
+		P & $\neg P$ \\ \hline 
+		T & F \\
+		F & T \\
+	\end{tabular}
+\end{table}
+\subsubsection{Conjunction ($\wedge$)}
+A good way to understand Conjunction is to think of it as an 'and'. Let P and Q be two statements. P $\wedge$ Q is true if both P and Q is true. If this is not ssatisfied, then P  $\wedge$ Q is false.
+
+\begin{table}[htpb]
+	\centering
+	\caption{Truth table for $\wedge$}
+	\label{tab:conjunction table}
+	\vspace{5pt}
+	\begin{tabular}{c|c|c}
+		P & Q & P $\wedge$ Q\\ \hline
+		T & T & T \\
+		F & T & F \\
+		T & F & F \\
+		F & F & F \\
+	\end{tabular}
+\end{table}
+
+\subsubsection{Disjunction ($\vee$)}
+In a similar manner to a conjunction, disjunction can be thought of as an 'or'. If we were to have two statements P and Q, P $\vee$ Q would be true if atleast one of P and Q are true. Otherwise, P $\vee$ Q is false.
+
+\begin{table}[htpb]
+	\centering
+	\caption{Truth table for $\vee$}
+	\label{tab:disjunction table}
+	\vspace{5pt}
+	\begin{tabular}{c|c|c}
+		P & Q & P $\vee$ Q\\ \hline
+		T & T & T \\
+		F & T & T \\
+		T & F & T \\
+		F & F & F \\
+	\end{tabular}
+\end{table}
+\subsubsection{Implication ($\implies$)}
+Let P and Q be two statements. P $\implies$ Q (read P implies Q) can be described as this: If P is true, then Q is also true. I'd like to think of it in a sense that P is tied to Q: If we assume P $\implies$ Q is true, then whenever P is true, Q is also true. The reverse might not be true, however: Whenever Q is true, P might not also be true. The value of P is wholy dependent on Q.
+
+
+\begin{table}[htpb]
+	\centering
+	\caption{Truth table for $\wedge$}
+	\label{tab:implication table}
+	\vspace{5pt}
+	\begin{tabular}{c|c|c}
+		P & Q & P $\implies$ Q\\ \hline
+		T & T & T \\
+		F & T & T \\
+		T & F & F \\
+		F & F & T \\
+	\end{tabular}
+\end{table}
+
+Implication can also be turned into a disjunction ($\vee$).
+\begin{tcolorbox}
+	For statements P and Q, \[
+	P \implies Q \equiv \left( \neg P \right) \vee Q 
+	.\] 
+\end{tcolorbox}
+The equal sign ($\equiv$) is an equivalence sign, which denotes that two statments are logically equivalent. I'll go through it shortly.
+Which could be proven by comparing the truth tables.
+\subsubsection{Biconditional ($\iff$)}
+Bi-implication ($\iff$, read " if and only if) is much easier to understand than implication. One can think of Bi-implication between two statement P and Q as stating that P and Q must have the same truth values.
+
+\begin{table}[htpb]
+	\centering
+	\caption{Truth table for $\wedge$}
+	\label{tab:bi-implication table}
+	\vspace{5pt}
+	\begin{tabular}{c|c|c}
+		P & Q & P $\iff$ Q\\ \hline
+		T & T & T \\
+		F & T & F \\
+		T & F & F \\
+		F & F & T \\
+	\end{tabular}
+\end{table}
+
+Given a biconditional statement, the following applies.
+\begin{tcolorbox}
+For statements P and Q, \[
+P \iff Q \equiv \left( P \implies Q \right) \wedge \left( Q \implies P \right)   \]	
+\end{tcolorbox}
+
+When using english sentences, these logical connectives tend to be interpreted in a different way. here are some of the most common:
+
+
+\begin{table}[htpb]
+	\centering
+	\caption{Interpretation in English}	
+	\label{tab:alternative-interpretation}
+	\vspace{5pt}
+	\begin{tabular}{c|c}
+		P $\implies$ Q & If P then Q, P only if Q,\\
+			       & Q if P, P is sufficient for Q Q is neccesary for P\\ \hline
+		P $\iff$ Q & P if and only if Q, P iff Q,\\
+			   & P is equivalent to Q, P exactly when Q,\\
+			   & P is neccesary and equivalent to Q\\
+	\end{tabular}
+\end{table}
+
+
+\subsection{Logical Equivalence}
+\begin{tcolorbox}[title= Definition]
+	If two compound statement produce the same truth table, then we can say that the statements are logically equivalent.
+\end{tcolorbox}
+As an example, say we have statements $P$ and $Q$. We can produce the above truth table.
+\begin{table}[htpb]
+	\centering
+	\caption{Truth table of $P$ and  $Q$}
+	\vspace{15pt}	
+	\label{tab:equivalenceex}
+	\begin{tabular}{c|c|c|c|c|c|c|c}
+		$P$ &  $Q$ &  $\neg P$ & $\neg Q$ &  $P \wedge Q$ & $\neg \left( P \wedge Q \right)$ & $\neg P \wedge \neg Q$ &  $\neg P \vee \neg Q$ \\ \hline 
+		T & T & F & F & T & F & F & F \\
+		T&F&F&T&F&T&F&T \\
+		F&T&T&F&F&T&F&T \\
+		F&F&T&T&F&T&T&T \\
+	\end{tabular}
+\end{table}
+
+
+Notice that $\neg\left( P \wedge Q \right) $ has the same truth table as $\neg P \vee \neg Q$. From the definition, we can say that  $\neg \left( P \wedge Q \right) $ and $\neg P \vee \neg Q$ are logically equivalent, which we can write as: \[
+\neg \left( P \wedge Q \right)  \equiv \neg P \vee \neg Q.\] 
+
+\subsubsection{Equivalence Laws}
+The following are laws that will be used to analyze compound statements. 
+ld
+For any statement P, Q and R:
+
+\begin{tcolorbox}[breakable, title=Definition]
+	\textbf{Negation Law}\[
+		\neg\left( \neg P \right) \equiv P 
+	.\]
+
+	\textbf{Idempotent Law}\[
+		P \wedge P \equiv P
+		.\] \[
+		P \vee P \equiv P
+	.\] 
+	\textbf{Commutative Law}\[
+		P \wedge Q \equiv Q \wedge P
+		.\] \[
+		P \vee Q \equiv Q \vee P
+	.\] 
+	\textbf{Associative Law}\[
+		\left( P \wedge Q \right) \wedge R \equiv P \wedge \left( Q \wedge R \right)  
+		.\] \[
+		\left( P \vee Q \right) \vee R \equiv P \vee \left( Q \vee R \right)  
+	.\] 
+	\textbf{Distributive Laws}\[
+		P \wedge \left( Q \vee R \right) \equiv \left( P \wedge Q \right) \vee \left( P \wedge R \right)   
+		.\] \[
+		P \vee \left( Q \wedge R \right) \equiv \left( P \vee R \right) \wedge \left( P \vee R \right)  
+	.\]
+	\textbf{DeMorgan's Law}\[
+		\neg \left( P \wedge Q \right) \equiv \neg P \vee \neg Q
+		.\] \[
+		\neg\left( P \vee Q \right) \equiv \neg P \wedge \neg Q 
+	.\] 
+\end{tcolorbox}
+\vspace{15pt}
+
+When determining the equivalence between two statements, one could always use a truth table to check both of their truth values. Infact, you could verify all the above laws by doing so. However, this is excrutiatingly slow, especially if the statements in questions contain more that three sub-statements. As such, being proficient with applying these laws are quite crucial.
+
+Whenever you use DeMorgan's Laws to express a negation of a conjunction or disjuction, we can say that you've made a useful denial. 
+
+\paragraph{Example} Assume n is a fixed positive integer. We are trying to find a usefull denial for the sentence 
+
+\begin{center}
+	$n = 2$ or n is odd.
+\end{center}
+
+To do this, we'll write out the statement in mathmatical notation. We'll take statement P and Q as the LHS and RHS, respectively. This would give use $P \vee Q$. Negating it,
+
+\begin{align*}
+	\neg \left(P \vee Q \right) &\equiv \neg P \wedge \neg Q \\
+				    &\equiv \left( n \not = 2 \right) \wedge \left(\text{n is even} \right)   
+.\end{align*}
+We call $\equiv \left( n \not = 2 \right) \wedge \left(\text{n is even} \right)$ a useful denial. 
+
+
+Another tool that you might use when dealing statements involving real numbers is the Trichotomy Axiom.
+\begin{tcolorbox}[title=Trichotomy Axiom]
+	\textit{Given a fixed real number a and b, exactly one of these is true:} $a < b$,  $a = b$,  $b< a$.
+\end{tcolorbox}
+Say we want to find a negation of the statement $1 < x < 2$. We could split the statement into two:  $x > 1$ and  $x < 2$. Using DeMorgan's Laws:
+ \begin{align*}
+	 \neg \left( P \wedge Q \right) &\equiv \neg P \vee \neg Q \\
+					&\equiv \left( x \le 1 \right) \vee\left( x \ge 2 \right)  
+.\end{align*}
+Notice the inequality signs. Since we are seeking a negation of the initial sign, we'll switch them to a $\ge$ and $\le$ respectively. 
+\subsection{Tautologies and Contradictions}
+I'll start of by defining the two terms:
+\begin{tcolorbox}[title=Definition]
+	\paragraph{Tautology} is a statement form that is always true, no matter the value assignments to it's constituent statement variables.
+	\vspace{15pt}
+	\paragraph{Contradiction} is a statement form that is always false, no matter the value assignemnts to it's constituent statement variables.
+\end{tcolorbox}
+\noindent To demonstrate, take a statement P. From a truth table, we can see that
+\begin{itemize}
+	\item $P \vee \neg P$ is a tautology.
+\item  $P \wedge \neg P$ is a contradiction.
+\end{itemize}
+
+\begin{table}[htpb]
+	\centering
+	\caption{Comparison}
+	\label{tab:label}
+	\begin{tabular}{c|c|c}
+		P & $P \vee \neg P$ &  $P \wedge \neg P$ \\ \hline
+		T & T & F\\
+		F & T & F \\
+	\end{tabular}
+\end{table}
+\noindent As you can see, both of the collumns are always true and false, respectively.
+When dealing with tautologies and contradiction in a statement, it is useful to keep in mind the following laws:
+
+\begin{tcolorbox}
+	\textit{Let P be a statement. If T is a Tautology and C is a contradiction, then the following applies:}
+	
+	\vspace{15pt}
+	\textbf{Identity Laws:}\[
+	P \wedge T \equiv P
+	.\]\[
+	P \vee C \equiv P
+	.\] 
+	\textbf{Universal Bound Laws:}\[
+	P \vee T \equiv T
+	.\]\[
+	P \wedge C \equiv C
+	.\]  
+\end{tcolorbox}
+
+
+\noindent Which should be intuitive
+
+\subsection{Converse, Inverse and Contrapositive}
+\noindent I'll start by defining the following: Let P and Q be statements. Then,
+\begin{itemize}
+	\item[i.] The \textit{converse} of $P \implies Q$ is the statement $Q \implies P$.
+	\item[ii.] The \textit{inverse} of $P \implies Q$ is the statement $\neg P \implies \neg Q$.
+	\item[iii.] The \textit{contrapositive} og $P \implies Q$ is the statement $\neg Q \implies \neg P$.
+\end{itemize}
+When dealing with equivalence, the following also applies.
+\begin{tcolorbox}
+	\textit{Let P and Q be statements.}
+	\begin{itemize}
+		\item[i.] $P \implies Q$ \textit{is logically equivalent to} $\neg Q \implies \neg P$ \textit{(it's contrapositive).}
+		\item[ii.] $P \implies Q$ \textit{ is not logically equivalent to }$Q \implies P$ \textit{(its converse).}
+		\item[iii.] \textit{The converse of the statement} $P \implies Q$ \textit{is logically equivalent to it's inverse.}
+	\end{itemize}
+\end{tcolorbox}
+
+While the lecture does not go into the greater significance of these definitions, I do still think that it is worth knowing. In general, these are usually used to proof conditional statements (implication and biconditional). Let's say I want to prove the statement $P \implies Q$. In many cases, the direct proof is very hard to do. As such, converting it into it's contrapositive $\neg Q \implies \neg P$ and proving that statement instead could be much easier. I encourage you to read it in your own time.
+
+
+\subsection{Quantifers ($\forall$, $\exists$)}
+I'll start of with an example. Let $P\left( n \right) $ be the predicate $n + 1 > 3$. Let $\mathbb{U}$ also be a the set of natural number  $\mathbb{N}$. We could always assign a value to n from  $\mathbb{N},$, thus turning it into a statement. Another way to do this is by using quantifiers. There are two quantifiers discussed in this note: universal and existential quantifiers.
+
+For the same predicate  $P\left( n \right) $, we can derive both it's universal and existential statement from. For the universal statement, the from would be \[
+	\text{"for all x in $\mathbb{U}$, $P\left( x \right) "$ } \qquad \text{Notation: }\left( \forall \; x \;\epsilon \; \mathbb{U} \right) P \left(x \right) 
+.\]
+\noindent $\forall$ here is called a universal quantifier.
+In a similar manner, we can derive the existential form of the statement: \[
+	\text{"there exist x in  $\mathbb {U}$,  $P\left( x \right)"$ } \qquad \text{Notation: } \left( \exists \; x \; \epsilon x \mathbb{U} \right) 
+.\]
+We call $\mathbb{\exists}$ an existential quantifier.
+\vspace{15pt}
+
+\noindent When negating a quantified statement, we may use the following:
+
+\begin{tcolorbox}
+	\textit{Let $\mathbb{U}$ be the universe under consideration. For a predicate  $P\left( x \right) $ whose only free variable is x,}
+	\begin{itemize}
+		\item[] $\neg [\left( \forall \; x \; \mathbb{U} \right) P\left( x \right) ]$ \textit{is logically equivalent to } $\left( \exists \; x \; \epsilon \; \mathbb{U} \right) \neg P \left( x \right) .$ 
+		\item[] $\neg [\left( \exists \; x \; \mathbb{U} \right) P\left( x \right) ]$ \textit{is logically equivalent to } $\left( \forall \; x \; \epsilon \; \mathbb{U} \right) \neg P \left( x \right) .$ 
+	\end{itemize}
+\end{tcolorbox}
+
+\paragraph{For statements with multiple quantifier, we begin with the first quantifier, and work our way in.} This is due to the fact that the order of the quantifier applied to a predicate changes its results. \textit{You should give it a try.}
+\section{Techniques of Proof}
+\subsection{Proof}
+Proof in Mathematics are only considered complete when it demonstrates an arguement that holds for all cases. Let's explore an example to demonstrate:
+
+\paragraph{Example.}We observe that:
+\begin{itemize}
+	\item $31$ is a prime number.
+	\item $331$ is a prime number.
+	\item $3331$ is a prime number.
+	\item  $33331$ is a prime number.
+\end{itemize}
+From this observation, one would be tempted to assume that any number of the form $3333 \ldots 33331$ is a prime number.
+	
+\noindent We call this assumption a \textbf{conjecture}. More formally:
+\begin{tcolorbox}[title=Definition]
+\textbf{Conjecture} is a mathematical statement that is taken to be true based on supporting evidence, yet it's  validity has not been fully established.
+	
+\end{tcolorbox}
+To test this conjecture, we could try to come up with a number of the form $3333 \ldots 33331$ that is not a prime number. Note that:
+ \[
+333333331 = 17 \times 19607843
+.\] 
+by the definition of prime numbers, makes $333333331$ not a prime. Therefore, we can say that the conjecture is false. This method of disproving a conjecture is called a \textbf{counterexample}.
+
+Let's now define the definition of proof, more formally:
+\begin{tcolorbox}[title=Definition]
+	\textbf{Proof} is a logical arguement that extablishes a truth of a mathematical statement.	
+\end{tcolorbox}
+\noindent There are three kinds of proof:
+\begin{itemize}
+	\item direct proof
+	\item indirect proof
+	\item mathematical induction
+\end{itemize}
+We will discuss the first two in this chapter, while mathmatical induction will be left for the next one.
+
+\noindent In addition to proof, I'll also define the following:
+
+\paragraph{Theorem} as a mathematical statement that has been proven. It's sometime's referred to as a proposition
+
+\paragraph{Lemma} as a 'side-effect' or 'stepping stone' that appears at the proccess of proving a theorem.
+
+\paragraph{Claim} as a result that must be achieved in proving a theorem.
+\subsection{Inference}
+Inference is the proccess of deducing a result of a theorem in such as way that the theorem is fundamentally preserved. I'll demonstrate it with the following:
+Suppose we have a fixed integer $n$, and we know the following:
+ \begin{itemize}
+	\item If and integer is even, then it's square is also even.
+	\item n is even.
+\end{itemize}
+The answer is n is even, which seems obvious. However, let's use the rule of inference. Let P and Q be the statement \textit{$n$ is even} and \textit{$n ^ 2$ is even}, respectively. We know that $P \implies Q$ is true. Here's I'll follow a inference rule called \textit{modus ponens}. It's represented by the following diagram:
+ \[
+	 \infer{\therefore Q}{P \implies Q & P}
+.\] 
+
+\noindent From the diagram, we can conclude that Q is true. The symbol $\therefore$ stands for therefore.
+
+The following are some rules of inference:
+\begin{tcolorbox}[title= Rules of Inference]
+	\begin{multicols}{2}
+\textbf{Modus Ponens}
+		\[	
+			\infer{\therefore Q}{P \implies Q & P}
+		\]
+		\textbf{Generalization}
+		\[	
+			\infer{\therefore P \implies Q}{P}
+		\]
+		\textbf{Specialization}
+		\[	
+			\infer{\therefore P}{P \wedge Q}
+		\]
+		\textbf{Elimination}
+		\[		
+			\infer{\therefore P}{P \vee Q & \neg Q}
+		\]	
+		\textbf{Modus Tollens}
+		\[		
+			\infer{\therefore \neg Q}{P \implies Q & \neg Q}
+		\]	
+\textbf{Transitivity}
+		\[	
+			\infer{\therefore P \implies R}{P \implies Q & Q \implies R}
+		\]		
+		\textbf{Division into Cases}
+		\[		
+			\infer{\therefore R}{P \wedge Q & P \implies R & Q \implies R}
+		\]
+
+
+	\end{multicols}
+\end{tcolorbox}
+
+\subsection{Properties of Real Numbers}
+The properties of real numbers can largely be divided into three catagories: algebraic properties, ordered properties and completeness properties.
+\begin{tcolorbox}[title= The algrebaic properties of real numbers]
+	There are two binary operations, ($+$ and $\times$) that is defined for real numbers.
+	For all real numbers, we have:
+
+	\vspace{0.4cm}
+	
+	\begin{tabular}{rp{6cm}}
+		
+		Closure under  $+$ and  $\times$ &  $a + b$ and  $ab$ are real numbers. \\
+		Commutative laws & $a + b = b + a$, $ab = ba$. \\
+		Associative laws & $\left( a + b \right) + c = a + \left( b + c \right)$, 
+		$\left( ab \right)c = a \left( bc \right)  $. \\
+		Distributive laws & $a\left( b + c \right) = ab + ac $.\\
+		Identities & $0 \not = 0$, $a + 0 = a$,  $a \cdot 1 = a$. \\
+		Additive inverses & There is a unique real number $-a$ such that  
+		$a + \left( -a \right) = 0 $. \\ 
+		Subtraction & $a - b$ is defined to equal  $a + \left( -b \right).$ \\ 
+	\end{tabular}
+\end{tcolorbox}
+
+\begin{tcolorbox}[title= The ordered property of real numbers]
+	The order relation $ < $ has the following properties: For all real numbers a, b, c, we have:
+	\vspace{0.4cm}
+	
+	\begin{tabular}{rp{6cm}}
+		Trichotomy & Exactly one of the following holds: $a < b$,  $a > b$ or  $ a = b$. \\
+		Transitivity & If $a < b$ and  $b < c$, then  $a < c$. \\
+		Order Property 1 & If $a < b$, then  $a + c < b + c$. \\
+		Order Property 2 & If $a < b$, and $c > 0$, then  $ac < bc$. \\
+		Order Property 3 & If  $a < b$ and  $c < 0$, then $ac > bc$. \\		
+	\end{tabular}
+	
+\end{tcolorbox}
+\begin{tcolorbox}[title= The completeness property]
+	If a nonempty subset of $\mathbb{R}$ has an upper bound, then it has a leat upper bound.
+\end{tcolorbox}
+
+Most of these properties are intuitive, maybe even obvious. However, I do want to remark on the completeness property. It's something that's only really studied in real analysis, and most likely won't come up in any test of thie module. However, this property implies the result of the Archimedian Property and the theorem on the existence of nth root. If you are familiar with the property, the following proof might be much easier to understand.
+
+\begin{tcolorbox}[title= Archimidean Property]
+	\textit{For every real number x, there is a positive integer n such that n > x.}
+\end{tcolorbox}
+In mathematical notation, this can be written as $\left( \forall x \epsilon \mathbb{R} \right)\left(\exists n \epsilon \mathbb{Z}^+\right)[n > x]$.
+\begin{tcolorbox}[title= The existence of \textit{n}th root]
+	Let $n \; \epsilon \; \mathbb{Z}^+$:
+\begin{itemize}
+	\item[i.] Assume that n is even. The every $x$ $\epsilon \; \mathbb{R}$ with $x \ge 0$ has a real "\textit{nth root}"; i.e., there is a unique nonnegative real number denoted by $ x ^ \frac{1}{n} = \sqrt[n]{x}$ which satisfies \[
+				\left( x ^ \frac{1}{n}  \right) ^ n = x 
+	.\] 
+	\item[ii.] Assume that n is even. The every $x$ $\epsilon \; \mathbb{R}$ has a real "\textit{nth root}"; i.e., there is a unique nonnegative real number denoted by $ x ^ \frac{1}{n} = \sqrt[n]{x}$ which satisfies \[
+				\left( x ^ \frac{1}{n}  \right) ^ n = x 
+	.\] 
+	\end{itemize}
+\end{tcolorbox}
+One way to think about this theorem that helped me understand this intuitively is by analyzing the criterion$\left( x ^ \frac{1}{n}  \right) ^ n = x$. We could rewrite the root $x ^ \frac{1}{n} $ as $ x ^ n = a$, where a is an arbitrary number from subset $\mathbb{R}$. Notice that in this new expression for the root, the LHS matches the RHS in exactly one $x$, since the function  $x^n$ hae exactly one value for every x.
+
+Something to also note here is that, since integers $\mathbb{Z}$ is a subset of $\mathbb{R}$, they have all the properties of $\mathbb{R}$. In addition, they also have the following property: 
+
+\begin{tcolorbox}[title = Closure property of real numbers]
+	\textit{If a and b are integers, then $a + b$ and  $ab$ are also integers.}
+\end{tcolorbox}
+
+\subsection{Direct Proof}
+Direct proof is a method of proofing that tackles the statement head-on. I'll start with proofing the statement $P \implies Q$. 
+
+\subsubsection{Proof for $P \implies Q$}
+
+First let's analyze the statement. By the truth table, 
+
+\begin{table}[htpb]
+	\centering
+	
+	\label{tab:label}
+	\begin{tabular}{cc|c}
+		P & Q & $P \implies Q$ \\ \hline
+		T & T & T \\
+		T & F & F \\
+		F & T & T \\
+		F & F & T \\
+	\end{tabular}
+\end{table}we can see that the truth value for $P \implies Q$ depends heavily on $P$. If  $P$ is false, then no matter the value of Q, $P \implies Q$ is true. If P is true, Q would need to be true as well in order for the statement to be true. Given an arbitrary statement P and Q, we can follow the following procedure of proving $P \implies Q$.
+\begin{itemize}
+	\item[1.] Begin by \textit{assuming} that P is true.
+	\item[2.] Apply rule of inference to get new statements.
+	\item[3.] Repeat step 2 until we can see that Q is true.
+\end{itemize}
+This proof is said to be sufficient, as in, it is enought to proof the statement. To understand this better, let's take a look at an example.
+
+\noindent Let $n$ be an integer. Proof that if  $n$ is even, then  $n^2$ is even.
+I'll give the definition of odd and even integers for this example
+\begin{tcolorbox}[title=Definition]
+	\vspace{-15pt}
+	\begin{align*}
+		&n \text{ is even if } \left( \exists k \epsilon \mathbb{Z} \right)[n = 2k] \\
+		&n \text{ is odd if} \left( \exists k \epsilon \mathbb{Z} \right)[n = 2k + 1] 
+	.\end{align*}
+\end{tcolorbox}
+
+I'll also introduce the division algorithm
+\begin{tcolorbox}[title=Division Algorithm]
+\textit{Let a, b }$\epsilon \; \mathbb{Z}$\text{with }$b > 0$. \text{ Then, there exist unique q,r} $ \epsilon \mathbb{Z}$ \text{ such  that}\[
+		a = bq + r \qquad \textit{where } 0 \le r < b.
+	.\] 	
+
+\end{tcolorbox}
+ 
+This algorithm would be proven in chapter 6, where we delve into number theory. For the time being, we would use it to solve problem without scrutinizing it. In the division theorem, if we take b = 2, we can write every integers as \[
+a = 2q
+,\] \[
+a = 2q + 1
+.\]  
+
+\noindent Continuing with our example, if we take $n = 2k$, which is even,
+\[
+	n ^ 2 = \left( 2k \right) ^ 2 \\
+	= 4k^2 \\
+	= 2\left( 2k ^ 2 \right).  \\
+\]
+\noindent Since $2(2k^2)$ is an integer, we can see that it is also even. As such the original statement can be said to be proven.
+
+
+\subsubsection{Proving $\left( \forall x \; \epsilon \; \mathbb{U} \right)P\left( x \right)  $}
+
+Now, we'll intend to proof the statement $\left( \forall x \; \epsilon \mathbb{U} \right)P\left( x \right)  $. To make a direct proof of  $\left( \forall x \; \epsilon \mathbb{U} \right)P\left( x \right)  $, we'll let $x \; \epsilon \mathbb{U}$. Then, we'll demonstrate that  $P\left( x \right) $ is true. Consider the following example:
+
+\noindent Prove that the sum of an even and odd integer is odd.
+
+\noindent In mathematical notation: \[
+	\left( \forall m \; \epsilon \mathbb{Z} \right)\left( \forall  n \; \epsilon \mathbb{Z} \right) [(\text{m is even})\vee\left( \text{n is odd} \right) \implies m + n \text{ is odd].}  
+.\]
+We'll start by assuming that $m \text{ and } n$ is even and odd, respectively. Since m is even, there is an integer  \textit{i} such that $m = 2i$. Similarly, there is an integer $j$ such that  $n = 2j + 1$. As such,\[
+m + n = 2i + \left( 2j + 1 \right) = \left( 2j + 2i \right) + 1 = 2\left( i + J  \right) + 1 
+.\]  Since $i + j$ is an integer,  $m + n$ is odd.
+
+
+\subsection{Additional properties of real numbers}
+It is now time to delve deeper into some properties of real numbers that might seems obvious, but would nontheless prove useful when solving proof problems.
+
+ \begin{tcolorbox}
+	 \textit{For all real numbers a, $a \cdot 0 = 0.$ }
+\end{tcolorbox}
+Since $a \; \epsilon \; \mathbb{R}$ and  $0 = 0 + 0$, by the distributive law,
+\begin{align*}
+	a \cdot  0 &= a\left( 0 + 0 \right) = a \cdot 0 + a \cdot  0 \\
+a \cdot 0 + \left( -a \cdot  0 \right) &= \left( a \cdot  0 + a \cdot 0 \right) + \left( -a \cdot  0 \right)\\
+0 &= a \cdot  0 + \left( a \cdot  0 - a \cdot 0 \right) \\
+a \cdot 0 &= 0
+\end{align*}
+
+\begin{tcolorbox}
+	\textit{For all real numbers a, we have}\[
+	-a = \left( -1 \right)a, 
+	.\] 
+	\textit{that is, the additive inverse of a is equal to the product of -1 and a.}
+\end{tcolorbox}
+I'll leave the proof of this one to the reader.
+
+
+Recall that a real number $r$ is defined as a rational number $\mathbb{Q}$ if there are integers $a$ and  $b$, with $b \neq 0$ such  that r $a / b$.
+\begin{tcolorbox}[title=The Closure Property of Rational Numbers]
+	\textit{If r and s are rational numbers, then }$r + s$	\textit{ are also real numbers.}
+\end{tcolorbox}
+
+
+\subsubsection{Divisibility of Integers}
+Recall that $\mathbb{Z}$ denotes the set of all integers, and $\mathbb{Z}^{+}$ denotes the set of all positive integers(in some textbook, it is sometimes denoted as $\mathbb{N}$, but here we denote it as such to avoid the ambiguity of the number 0.) Let's define the divisibility of an integers:
+
+\begin{tcolorbox}[title=Definition]
+	Let $a$ and $b$ be integers. We would say that  $a$  \textbf{divides} $b$ if there exists $n \; \epsilon \; \mathbb{Z}$ such that $b = an$. In other words,  $\left( \exists  n \; \epsilon \; \mathbb{Z} \right)\left( b = an \right)  $.	
+\end{tcolorbox}
+
+We denote this divisibility by the symbol |. Divisibilty also has a trasitive relation:
+\begin{tcolorbox}
+	\textit{For all integers a, b, c, if } $a | b$ \textit{and}  $b | c$, \textit{then}  $a | c$.
+\end{tcolorbox}
+\noindent As a consequence of this, we also have the following:
+\begin{tcolorbox}
+	\textit{For all integers a, b, c, if } $a | b$ \textit{and}  $a | c$, \textit{then}  $a | \left( bm + cn \right) $ for some integers $m,n$.
+\end{tcolorbox}
+and
+\begin{tcolorbox}
+	\textit{If} $a,b \epsilon \mathbb{Z}^{+}$, \textit{and}	$a | b$, then  $a\le n$.			
+\end{tcolorbox}
+
+\subsubsection{Counterexample}
+I've already defined informally in the first chapter, so I'll delve into it deeper here.Recall that a counterexample is a way to prove that a statement is false, or proving it's negation true, by naming single condition that would contradict the statement.
+
+\subsubsection{Proof by cases}
+While one sometimes find it difficult to come up with some single general arguement to prove a statement, one could divide the arguement into multiple cases. Take the following example: \[
+	\text{For all integers} a, a\left( a+1 \right) \text{is even.} 
+.\] 
+When proving a statemnt such as this, it is often useful to divide it into multiple cases. In this case, we could divide the proof into two cases: $a$ is even and $a$ is odd. We would then proceed to proof that this statement holds for all the cases.
+
+\subsubsection{Working Backwards}
+This is another method of proving a conditional statement. Suppose we have the statement $ P \implies Q$. Instead of assuming $P$ is true, as is the case for the usual method of proving conditional statements, we \textit{know} that P is true. We would then start by assuming that $Q$ is true, then \textit{work our way backwards} from  $Q$ to  $P$. In other words, we would check the reversibilty of the intermediate arguements that leads to  $Q$, then reverse those arguements and obtain a valid proof of  $P \implies Q$.
+
+\subsubsection{Proving biconditional statements}
+Recall that $P \iff Q$ is equivalent to the statement $\left( P \implies Q \right) \wedge \left( Q \implies P \right)  $. As such, when proving a biconditional statement, we have to proof the following:
+\begin{itemize}
+	\item the forward direction $P \implies Q$
+		\item The backwards direction $Q \implies P$
+\end{itemize}
+
+\subsubsection{Uniqueness of Proof}
+Sometimes, we not only want to proof that an object exists, but also that proof that there is exactly one instance of that object. Take the statement there is a unique $x$ such that  $P \left( x \right) $. This can be written as \[
+	\left( \exists  x \; \epsilon \mathbb{U} \right)\left( \left( P\left( x \right) \wedge \left( \forall  y \; \epsilon  \mathbb{U} \right)\left( P\left( y \right) \wedge  P \left( z \right) \implies y =z    \right)   \right)  \right)  
+.\] 
+
+\subsection{Indirect Proof}
+Unlike direct proof, which proofs the statement itself, indirect proof uses contradiction and contrapositives and proving them that way. We'll start of with contradictions.
+\subsubsection{Proof by Contradiction}
+Proof of contradiction is made by assuming a condition other than the one laid out by the statement and finding a contradiciton in the arguement, thus indirectly proofing the statement. In general, we follow the following procedure:
+\begin{itemize}
+	\item Begin by assunming $\neg P$ is true.
+	\item We then come up with a contradiction.
+	\item Conclude that P is true.
+\end{itemize}
+
+
+\subsubsection{Proof by contrapositive}
+Suppose we want to prove $P \implies Q$, Sometimes, proving the statement directly might be a bit challenging. So we rewrite the statement into it's contrapositive $\neg Q \implies \neg P$.
+\subsubsection{Proving or statements}
+We now formulate a method to prove some aritrary statement $P \vee Q$. Recall that  $P \implies Q$ is equivalent to $\neg P \vee Q$. We could, then, manipulate the or statement in such a way that would allow us to turn it into a conditional statement, which could be proven by the already laid out methods.
+
+By and large, there are two ways to turn $P \vee Q$ into a conditional statement. We could convert it into either a  $\neg P \implies Q$ or a $\neg Q \implies P$, a product of the commutative property. Either way, proving it would require us to assume the first composite statement is true, then prooving the second composite statement.
+
+
+\subsection{Important Theorem}
+These are some important theorem that is incredibly useful when approaching proving problems. We would leave the proof of the theorem for later chapters.
+\begin{tcolorbox}[title= Fundamental Theorem of Arithmetic]
+	\textit{Any positive integers greater than 1 can be written as a product of primes. More precisely, if } $n \; \epsilon \; \mathbb{Z}$ and $n > 1$, then there exists primes  $p_1,p_2,\ldots,p_m$ such that \[
+	n = p_1p_2 \ldots p_m
+	.\] 
+	\textit{We call this expression the prime facotrization of n. \textbf{This product of primes is unique, save for the order in which the primes appear.}}
+\end{tcolorbox}
+	
+\begin{tcolorbox}[title= Euclid's Theorem]
+	\textit{There are infinitely many prime numbers}	
+\end{tcolorbox}
+\section{Induction}
+This chapter picks off from the last chapter and discusses induction as a methdo of proving a statement. We'll first start by the definition of recursively defined functions. 
+\subsection{Recursively Defined functions}
+Addition associates an ordered pair of real numbers by it's sum. Each time, however, we could only add two numbers. You could write $a_1 + a_2, a_3$, but the operator only adds them up two at a time. We call this sort of operation a \textbf{binary operation}.
+
+Given real numbers $a_1, a_2, \ldots a_n$ for $n \; \epsilon \mathbb{R}$, we denote \[
+	\sum_{k=1}^{n} a_n = \text{ the sum of } a_1,a_2,\ldots, a_n
+.\]   
+\subsection{Principle of Mathematical Induction}
+In general, the way one uses induction is by testing noth the base case of a statement and any other arbitrary values to see if it holds up. The principle can be defined as
+\begin{tcolorbox}[title=The Principle of Mathematical Induction]
+\textit{Let $n \; \epsilon \; \mathbb{Z}^{+}$, and $P\left( n \right) $ be a statement regarding $n$. If}
+	\begin{itemize}
+		\item[1.] The statement $P\left( 1 \right) $ is true and
+		\item[2.] The statement $P\left( m \right) \implies P\left( m + 1 \right)  $ is true for all $m \; \epsilon \; \mathbb{Z}^{+}$,	
+	\end{itemize}
+	\textit{then, for all positive integers n, $P\left( n \right)$ is true.}
+\end{tcolorbox}
+
+In mathematical notation, we would write it as \[
+	\{P\left( 1 \right) \wedge \left( \forall m \; \epsilon \; \mathbb{Z}^{+} \right) [P\left( m \right) \implies P\left( m + 1 \right) ]  \} \implies \left( \forall n \; \epsilon \; \mathbb{Z}^{+} \right) P\left( n \right)   
+.\]
+The principal of mathematical induction is a technique that could be used to proof statements of the form $\left( \forall  n \; \epsilon \mathbb{Z}^{+} \right) $. 
+	
+Using the Principles of Mathematical Inductions, we can come up with some more theorem for the sum of real numbers:
+
+\begin{tcolorbox}
+	\textit{For all } $n \; \epsilon \; \mathbb{Z}^{+}$, we have \[ \sum_{k=1}^{n} = \frac{n\left( n + 1 \right) }{2} \]
+
+	and \[ \sum_{k=1}^{n} = \frac{n\left( n+1 \right)\left( 2n+2 \right)}{6} .\]
+\end{tcolorbox}
+
+
+We could also write a more general version of PMI, where the base case corresponds to an integer $n_0$ which can be 0 or negative.
+
+\begin{tcolorbox}[title=The Principle of Mathematical Induction (Modified)]
+\textit{Let $n$ be an integer. For each integer n such that $n \ge  n_0$, let P(n) be a statement on n.}
+	\begin{itemize}
+		\item[1.] The statement $P\left( n_0 \right) $ is true and
+		\item[2.] For all integers $m\ge  n_0$, \[
+				\text{if P(m) is true, then P(m + 1) is true}
+		.\] 	
+	\end{itemize}
+	\textit{Then, for all positive integers n, $P\left( n \right)$ is true.}
+\end{tcolorbox}
+
+
+\subsection{Strong Induction}
+For certain statements, PMI could not provide a good way to prove the statements. As such, we define the Principle of Strong Mathematical Induction.
+
+\begin{tcolorbox}[title=The Principle of Strong Mathematical Induction]
+\textit{Let $n \; \epsilon \; \mathbb{Z}^{+}$, and $P\left( n \right) $ be a statement regarding $n$. If}
+	\begin{itemize}
+		\item[1.] The statement $P\left( 1 \right) $ is true and
+		\item[2.] For all positive integers m, \[
+				\textit{if $P(1), P(2),\ldots, P(m)$ are true, then $P\left( M + 1 \right) $ is true.   }
+		.\] 	
+	\end{itemize}
+	\textit{Then, for all positive integers n, $P\left( n \right)$ is true.}
+\end{tcolorbox}
+Do note though that, despite the name, both PMI and PSMI are equivalent. You should decide which one you use based on the question, as PSMI tends to be too general to use in a concise manner, leading to longer proofs. 
+
+\section{Sets}
+There are two types of set theories:
+\begin{itemize}
+	\item \textbf{Naive set theory.} informal and intuitive, which this course will cover
+		\item \textbf{Axiomatic Set theory.} Based on formal logic, which is discussed in MA1100T and MA3205
+\end{itemize}
+We'll start by the definition of a set.
+\begin{tcolorbox}
+\textbf{A set} is a collection of objects, ech of which is is called an element of the set.
+\end{tcolorbox}
+When dealing set problems, there are some general rule one must follow:
+\begin{itemize}
+	\item[1)] Fix a set of $\mathbb{U}$ which contains all the mathematical objects in consideration. In the previous chapters, we'd usually fix  $\mathbb{U}$ to  $\mathbb{R}$, but in the case of sets, one usually fix it to $\mathbb{Z}$. \\ 
+	\item[2)] Given set $A$ and a given fixed object in $\mathbb{U}$, we can write that x is an element of $A$ by these notations: \\
+		\begin{itemize}
+			\item "x is an element of A", or $x \; \epsilon \; A$. \\
+			\item "x is not an element of A", or $x \; \not \; \epsilon \; A$ \\
+		\end{itemize}
+		\item Two sets are equal if and only if they have the same elements. As such, a set is uniquely determined by its elements. \\
+\end{itemize}
+
+There are alos multiple ways of writing a set:
+\begin{itemize}
+	\item[1] Explicitly writing the set.
+	\item[2] Use the set builder notation.
+	\item[3.] Use constructive definition.
+\end{itemize}
+
+An empty set is a unique set that has zero elements inside it. It is denoted by $\emptyset $,
+\section{Functions}
+\section{Introduction to Number Theory}
+\section{Equivalence Relations and Partitions}
+\section{Finite and Infinite Sets}
+\section{Foundations of Analysis}
+\end{document}

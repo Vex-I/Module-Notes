@@ -1,0 +1,246 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[dutch]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage[most]{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+	\def\svgwidth{\columnwidth}
+	\import{./figures/}{#1.pdf_tex}
+}
+
+
+
+\pdfsuppresswarningpagegroup=1
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{Nawwaf Sudi | A0305727A}} 
+\fancyhead[R]{HW2}
+\begin{document}
+
+\noindent \textbf{Submission for Homework 2 of MA2002 Calculus} \newline
+
+\begin{tcolorbox}[title=Question 1]
+	Prove the following infinite limits using \textit{only} the precise definition (a is a fixed real number).
+	\begin{itemize}
+		\item [a.] $\lim_{x \to \infty} (x^3 + ax^2 + 1) = \infty$
+		\item[b.] $\lim_{x \to -\infty} \left(x^3 + ax^2 + 1\right) = -\infty $ 
+	\end{itemize}
+\end{tcolorbox}	
+\vspace{5pt}
+\noindent Let's examine the first part of the question. We have \[
+\lim_{x \to \infty} (x^3 + ax^2 + 1) = \infty
+.\]  What we have here is an infinite limit. When dealing with such limits, the following applies: \[
+x > N \implies f(x) > M
+.\]  Where M is an arbitrarily large number. In other words, for any arbitrary real number $M$ there exists a real number $N$ such that $x$ is larger than $N$.  
+
+To solve this, let's rewrite the second part of the definition such that we can pick the number N.
+\begin{align*}
+	f(x) &> M \\
+	x^3 + ax^2 + 1 &> M \\
+.\end{align*} 
+At this point, it would be pretty challenging to pick N from this inequality. As such we want to declare a lower bound $g(x) < f(x)$ for large $x$, such that if we can establish $x >N \implies g(x) > M$ We can also say that $x > N \implies f(x) > M$. In this case, the lower bound for a is when it is in the negatives. We can write
+\begin{align*}
+	x^3 + ax^2 + 1 &> x^3 -|a|x^2 + 1 \\
+		       &> x^2(x - |a|) + 1 \\
+		  g(x) &= x^2(x - |a|) < x^2(x - |a|) + 1 \\ 
+.\end{align*}
+If we also enforce $g(x) > 0$, we consider $(x - |a|)$ for $x > a$ as positive, and as such we can further modify the lower bound as
+ \begin{align*}
+	 x^2(x - |a|) &> x^2 = g(x).
+ \end{align*}
+ We can then write \[
+ g(x) = x^2 > M
+ .\] For $x \to  \infty$. Here, we'll pick $N = max(|a| + 1, \sqrt{M}) $, whichever one is stricter. Thus, we have satisifed \[
+ x > N \implies f(x) \ge  g(x) > M
+ .\] 
+ 
+ \noindent Now, let's move on to the second question: \[
+ \lim_{x \to -\infty}(x^3 + ax^2 + 1) = -\infty
+ .\] 
+ Which is very similar to the first part, and so we'll be following the same general steps to proof it. For a negative infinite limit, teh following definition applies: \[
+ x < N \implies f(x) < M
+ .\] 
+Which means, for any arbitrary large negative real number $M$ you come up with, there exists a real number $N$ such that $x$ is smaller than $N$. Unlike the first part, instead of choosing the lower bound, we'll come up with an upper bound $g(x)$ such that $f(x) < g(x)$ for x large negative $x$. We could rewrite $f(x)$ as 
+\begin{align*}
+	f(x) &= x^3 + ax^2 + 1 \\
+	&= x^2(x + a) + 1 \\
+.\end{align*} Notice that the sign of $x^2$ depends on $x + a$. For convenience, we'll bound $x + a < -1$, and so we can  write \[
+x^2(x + a) + 1 < -x^2 + 1
+.\] So, we can plug it in to the definition of negative infinite limit,
+\begin{align*}
+	-x^2 + 1 &< M \\
+	x^2 &< M - 1 \\
+	x &< \sqrt{M -1} 
+.\end{align*}
+To pick $N$ we'll pick the condition $min(-(|a| + 1), -\sqrt{1 - M} )$, whichever one is stricter. From here, we can conclude that for all $x < N, f(x) < M$.
+
+\begin{tcolorbox}[title=Question 2]
+	Show that the equation $x^3 - 15x + 3 = 0$ has at leasts three distinct solution in $\mathbb{R}.$
+\end{tcolorbox}
+
+\vspace{5pt}
+
+Let's analyze the function: Starting at $x = 0$, we can see that the curve dips from $y = 3$ to the negatives relatively quickly, only to eventually go back up beyond the x-axis. Here is a sketch of the function:
+
+
+\vspace{5pt}
+\begin{center}
+\begin{tikzpicture}
+	\begin{axis}[axis lines = middle, xlabel = {$x$},ylabel = {$y$}]
+		\addplot[domain= -5:5, samples = 100, color = blue]{x^3 - 15*x + 3};
+	\end{axis}
+\end{tikzpicture}
+\end{center}
+
+From the graph, we know that the function do have 3 distinct roots. However we seek to form a mathematical expression that would confirm that the function has three disticnt values. To do so we could use the intermediate value theorem. We know that the function is continuous at all points. The idea is to find three different non-overlapping interval such that we know that there is atleast one root in each. For this question let's consider the interval [-5,-3], [-3,3], [3,5].
+
+\noindent For [-5,-3]:
+\begin{align*}
+	f(x) &= x^3 - 15x + 3 \\
+	f(-5) &= (-5)^3 - 15(-5) + 3 \\
+	&= -125 + 75 + 3  \\
+	&= -47 \\
+	\vspace{5pt} \\
+	f(-3) &= (-3)^3 - 15(-3) + 3 \\
+	&= -27 + 45 + 3 \\
+	&= 21 \\
+.\end{align*}Since the function has different sign for $y$ on the two points, we can conclude that there is atleast on root at the open interval (-5,-3).
+
+\noindent For [-3,3]:
+ \begin{align*}
+	 f(-3) &= 21 \\
+	 f(3) &= 3^3 - 15(3) + 3 \\
+	 &= 27 - 45 + 3 \\
+	 &= -15 \\
+.\end{align*} Again, this means that there is atleast one root at the open interval (-3,3).
+
+\noindent For [3, 5]:
+\begin{align*}
+	f(3) &= -15 \\
+	f(5) &= (5)^3 - 15(5) + 3 \\
+	&= 53 \\
+.\end{align*}This means that there is atleast one root at the open interval (3,5)
+
+
+Putting it all together, since we have three disticnct non-overlapping interval in each of which there is atleast one root, we can conclude that the equation $x^3 - 15x + 3 = 0$ has atleast 3 distinct roots.  
+
+\begin{tcolorbox}[title=Question 3]
+	Find the equation of the tangent line to the graph of the equation $x^3y + xy^2 = 6$ at ($x,y$) = (1,2) by means of implicit differentiation. Express your answer in the form of $y = ax + b$, where $a,b$ are constants to be determined. 
+\end{tcolorbox}
+
+\vspace{5pt}
+\noindent We are given the equation \[
+x^3y + xy^2 = 6
+.\]  and we wish to find the tangent line at the point (1,2).
+
+The form of the tangent line that the question requests is in the form $y = ax + b$. Here, the constant $b$ is trivial, and only means the distance of the tangent point from the x-axis (2, in this case.) However, a is much more nuanced. The constant a here determines the gradient of the tangent line, ie.  $\frac{dy}{dx}$. As such, finding the value for a requires differentiation. In this case, implicit differentiation is the simplest. To be more specific, we are differentiating the function with respect to $x$, treating y as a function of x.
+
+\noindent We write
+\begin{align*}
+	6 &= x^3y + xy^2 \\
+	\frac{d}{dx} (6) &= \frac{d}{dx}(x^3y) + \frac{d}{dx}(xy^2) \\
+	0 &= 3x^2y + x^3\frac{dy}{dx} + y^2 + x(2y \frac{dy}{dx}) \\
+	0 &= y(3x^2 + y) + x(x^2 + 2y) \frac{dy}{dx} \\
+	-x(x^2 + 2y) \frac{dy}{dx} &= y(3x^2 + y) \\
+	\frac{dy}{dx} &= - y\frac{3x^2 + y}{x(x^2+2y)} 
+.\end{align*}
+
+Now, we simply substitute the point (1,2) into the expression.
+\begin{align*}
+	\frac{dy}{dx} &= - y\frac{3x^2 + y}{x(x^2+2y)} \\
+		      &=  - 2\frac{3(1) + 2}{1(1+2(2))}\\
+		      &= - \frac{5}{2} \\
+		      a &= - \frac{5}{2} \\
+.\end{align*}
+
+Putting it all into the equation for a linear line, we get the final answer \[
+	\boxed{y = - \frac{5}{2} x + 2}
+.\] 
+
+\begin{tcolorbox}[title= Question 4]
+	Find the derivatives of the following functions using the differentiation formulas
+
+	\centering	
+	\begin{tabular}{lr}
+		a) $f(x) = \sqrt{7x + \sec x} $ & b) $f(x) = (x^2 - 1)e^{x^{3}} $	
+	\end{tabular}
+\end{tcolorbox}
+
+Let's start with the first part of the problem. We want to differentiate the function \[
+f(x) = \sqrt{7x + \sec x}  
+.\] 
+Which is fairly straightforward:
+\begin{align*}
+	\frac{d}{dx} f(x) &= \frac{d}{dx}(7x + \sec x) (\frac{1}{2} (7x + \sec x)^{- \frac{1}{2}}) \\
+			  &= (7 + \frac{d}{dx} \frac{1}{\cos x}) \cdot \frac{1}{2} (7x + \sec x)^{-\frac{1}{2}}\\
+			  &=\frac{1}{2} (7x + \sec x)^{-\frac{1}{2}}(7 - \frac{\frac{d}{dx} \cos x}{\cos^2 x}) \qquad \text{ differentiation of } \frac{f(x)}{g(x)} \\
+			  &= \frac{1}{2}(7x + \sec x)^{-\frac{1}{2}} (7 + \frac{\sin x}{\cos^2 x}) \\
+			  &\boxed{=\frac{7 + \tan x \sec x}{2\sqrt{7x + \sec x}}}  
+.\end{align*}
+
+As for the second part, are also pretty straightforward.
+\begin{align*}
+	f(x) &= (x^2 - 1) e^{x^{3}} \\
+	\frac{d}{dx} f(x) &=  (2x e^{x^{3}}) + ((x^2 - 1)(3x^2)e^{x^{3}}) \\
+			  &\boxed{= (2 + 3x(x^2 - 1))x e^{x^{3}} }
+.\end{align*}
+
+
+\begin{tcolorbox}[title=Question 5]
+Let f(x) $ =
+\begin{cases}
+	(x^2 - 1), & \text{if } x \le 1; \\
+	x-1, & \text{if } x > 1.\\
+\end{cases}
+$ Determine whether $f(x)$ is differentable at x = 1. Justtify your answer!
+\end{tcolorbox}
+\vspace{5pt}
+We are given the following heaviside function: \[
+f(x) =
+\begin{cases}
+	(x^2 - 1), & \text{if } x \le 1; \\
+	x-1, & \text{if } x > 1. \\
+\end{cases}
+\] 
+To determine whether a function is differentiable at a point $x = x_0$, we would have to satisfy  \[
+	\boxed{\lim_{x \to x_0^{+}} f(x) = \lim_{x \to x_0^{-}} f(x)} \qquad \text{and} \qquad  \boxed{\lim_{x \to x_0^{+}} f'(x) = \lim_{x \to x_0^{-}} f'(x).}        
+\] 
+\noindent Now, let's differentiate the function $f(x)$.
+ \begin{align*}
+	f(x) &= (x^2 - 1), x \le 1 \\
+	f'(x) &= 2x \\
+	\text{and     }& \\
+	f(x) &= x - 1, x > 1 \\
+	f'(x) &= 1 
+.\end{align*}
+
+
+\noindent For the first criterion,
+\begin{align*}
+	\lim_{x \to 1^{+}} (x - 1) &= \lim_{x \to 1^{-}} x^2 - 1 \\ 
+	1 - 1 &= 1^2 - 1 \\
+	0 &=  0 
+.\end{align*}
+\noindent Which is satisfied. As for the second criterion,
+\begin{align*}
+	\lim_{x \to 1^{+}} 1 &= \lim_{x \to 1} 2x  \\ 
+	1 &= 2(1) \\
+	1 &= 2
+.\end{align*}
+Which is not satisfied. Therefore, the function $f(x)$ is not differentiable at the point $x = 1$
+\end{document}
