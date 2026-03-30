@@ -1,0 +1,227 @@
+\documentclass[5pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{multicol}
+\usepackage{proof}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+
+\usepackage[most]{tcolorbox}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\tcbset{
+colback=gray!5,
+colframe=blue!50!white,
+coltitle=black,
+arc=0pt,
+boxrule=-0.1mm,
+fonttitle=\bfseries,
+coltitle=black,
+left=2.5mm,
+leftrule=1mm,
+right=3.5mm,
+colbacktitle=black!10!white,
+toptitle=0.75mm,
+bottomtitle=0.5mm,
+}
+\title{ST2131 Probability}
+\date{Y2S2 2026}
+\author{Nawwaf Sudi}
+\begin{document}
+    \maketitle
+    \newpage
+    \tableofcontents
+    \newpage
+    \section{Combinatorial Analysis and Probability}
+    Let's begin with an intuitive introduction. Suppose you have a task, that
+    takes a couple of steps to complete. Suppose for the $i$-th task, we have
+    $m_i$ possible ways to perform it. When determining the total amount of ways
+    you have to complete the task, we follow the multiplication principle. 
+    \begin{tcolorbox}[title=Multiplication Principle]
+        For an experiment consisting of $n$ different independent events, where
+        $m_1,m_2,\ldots,m_n$ are the number of possible outcomes of the event,
+        the total number of possible outcomes $N$ is given by \[
+            N = m_1m_2\ldots m_n
+        .\] 
+    \end{tcolorbox}
+
+    Suppose, again, that we are to pick a ball out of $n$ urns, where each urns
+    contain $m_n$ number of balls. The total amount of possible balls that we
+    could pick is given by the addition principle.
+    \begin{tcolorbox}[title=Addition Principle]
+        For $n$ sets of outcomes that each has $m_i$ elements, where $i$ is the
+        $i$-th set, and all the set is mutually exclusive, the total number of
+        outcomes $N$ is  \[
+            N = m_1+m_2+\ldots + m_n
+        .\] 
+    \end{tcolorbox}
+
+    \section{Discrete Random Variable}
+
+    \section{Continuous Random Variable}
+    \begin{tcolorbox}[title=Continuous Random Variable]
+        A random variable $X$ is said to be continuous if there exists a
+        nonnegative function $f_X$ defined for all $x \in \mathbb{R}$ such that
+        for any set $B \subseteq \mathbb{R}$, \[
+            P(X \in B) = \int_B f_X(x) dx
+        .\] 
+        $f_X$ is refered to as the Probability Desity Function (PDF). Note that
+         $X$ takes on an uncountably large number of support.
+    \end{tcolorbox}
+    \paragraph{Example} For a continuous random variable $X$, and a real
+    interval $B=[a,b]$, the probability that $X$ takes on the value inside $B$
+    is given by  \[
+            P(a \le X \le b) = \int_a^b f_X(x) dx
+    .\] 
+    
+    \begin{tcolorbox}[colframe=blue!20!white]
+        Another way of understanding the PDF of a continuous random variable is
+        thus: Suppose a very small interval $\epsilon$ and a PDF $f_X$ continous
+        at a particular point  $x$. The probability that $X$ 
+        takes on the value $x - \frac{\epsilon}{2} \le X \le x +
+        \frac{\epsilon}{2}$ is \[
+        P(x - \frac{\epsilon}{2} \le x \le x + \frac{\epsilon}{2})
+        = \int_{x-\frac{\epsilon}{2}}^{x+\frac{\epsilon}{2}} f_X(x) dx
+        .\] 
+        Since $\epsilon$ is small, then we can model the probability that $X$ 
+        falls into the interval as $\epsilon f_X(x)$, and as such the function
+        can be thought of as the probability that the random variable would
+        take on values near $x$.
+
+        Also, notice that if $\epsilon \to 0$ (ie. $a,b \to x$), $X$ would take
+        on the value of $x$, and \[
+        P(X = x)
+        = \int_{x-\frac{\epsilon}{2}}^{x+\frac{\epsilon}{2}} f_X(x) dx = 0
+        .\] 
+        We can conclude that the probability that a continuous random variable
+        takes on a single particular value is zero
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[title= Continuous Distribution Function]
+        We define the CDF for a continuous random variable the exact same way
+        that we define it for the discreete random variable, which is \[
+        F_X(x) = P(X \le x)
+        .\] 
+    \end{tcolorbox}
+    \begin{tcolorbox}[title=Properties of CDF]
+        \begin{enumerate}
+            \item $F_X(x)$ is a nondecreasing function.
+            \item $\lim_{b \to \infty}F_X(b) =1$
+            \item $\lim_{b \to -\infty}F_X(b) =0$ 
+            \item $F_X(x)$ is right continuous ($\lim_{x \to b^+} F_X(x) =
+                F_X(b)$)
+        \end{enumerate}
+    \end{tcolorbox}
+
+    Using the above properties, and the definition of a continuous random
+    variables, we can write the following colloraries:
+
+    \[P(a < X \le b) = F_X(b) - F_X(a)\]
+
+    \paragraph{Proof}
+
+    We write $\{X\le b\} = \{X \le  a\} \cup \{a < X < b\}$. Thus, 
+    \begin{align*}
+        P(X \le  b) &= P(X \le  a) + P(a < X \le b) \\
+        P(a < X \le b) &= P(X \le b) - P(X \le b)
+    .\end{align*}
+
+    \[P(X <b) = \lim_{n \to \infty} \left( b - \frac{1}{n} \right) \]
+
+    \paragraph{Proof}
+
+        \[P(X=a) = F_X(a) - P(X < a).\] 
+
+    \paragraph{Proof} aa
+
+
+    \begin{tcolorbox}[title= q-th Quantile]
+        A $q$-th quantile of a random variable $X$ is defined as the number
+        $z_q$ such that  \[
+        P(X \le z_q) = q
+        ,\] with $0\le q\le 1$  
+    \end{tcolorbox}
+    \begin{tcolorbox}[title=Expectation of a Continuous Random Variable]
+        The expectation of a continuous random variable $X$ is given by  \[
+            E(X) = \int_{-\infty}^{\infty} xf_X(x) dx
+        .\] 
+        The variance of $X$ is given by  \[
+            var(X) = \int_{-\infty}^{\infty}\left(x - E(X)\right)^2 f(x)dx
+        .\] 
+    \end{tcolorbox}
+    \begin{tcolorbox}[title=Tail-Sum Formula]
+        The expected value of a continuous random variable is given by \[
+            E(X) = \int_{0}^{\infty}P(X\ge x)dx = \int_{0}^{\infty}P(X>x)dx
+        .\] 
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[title=Normal Distribution]
+        A random variable $X$ is sad to be normally distributed with parameters
+         $\mu$ and $\sigma^2$ if it's probability density function is given by
+          \[
+              f_X(x) = \frac{1}{\sqrt{2\pi}\sigma
+              }e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+         .\]
+         Denoted by N($\mu,\sigma^2$).
+         N(0,1) is called a standard normal, denoted by $Z ~N(0,1)$. It's PDF
+         and CDF is given by  \[
+             \phi(X) = \frac{1}{\sqrt{2\pi}e^{-\frac{x^2}{2}} }
+         .\] 
+         \[
+             \Phi(x) = \frac{1}{\sqrt{2\pi} } \int_{-\infty}^{x}
+             e^{-\frac{y^2}{2}}dy
+         .\] 
+    \end{tcolorbox}
+    \begin{tcolorbox}[title=Normal Distribution Property, colframe=blue!20!white]
+        If $Y ~ N(\mu,\sigma^2)$, then $E(Y) = \mu$ and $var(Y) = \sigma^2$. We
+        can write the relation between $Y$ and $Z$ like so: \[
+        P(a \le Y\le b) = P(\frac{a-\mu}{\sigma} \le Z \le \frac{b -
+        \mu}{\sigma}) = \Phi(\frac{b-\mu}{\sigma}) - \Phi(\frac{a-\mu}{\sigma})
+        .\] 
+    \end{tcolorbox}
+    \begin{tcolorbox}[title=Standard Normal Distribution Properties,
+        colframe=blue!20!white]
+        \begin{enumerate}
+            \item $P(Z \ge 0) = P(Z \le 0) = \frac{1}{2}$
+            \item $-Z ~ N(0,1)$ 
+            \item $P(Z\le x) = 1 - P(Z > x)$
+            \item $P(Z \le -x) = P(Z > x)$
+            \item If $Y~N(\mu,\sigma^2)$, then $X = \frac{x- \mu}{\sigma^2} ~
+                N(0,1)$
+            \item If $X ~ N(0,1)$, then $Y=aX + b ~ N(b,a^2)$
+        \end{enumerate}
+        
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[title=Exponential Distribution]
+        A random variable is said to be exponentially distributed if the PDF is
+        given by \[
+        f_X(x) = \begin{cases}
+            \lambda e^{-\lambda x} & x \ge 0 \\
+            0 & x < 0
+        \end{cases}
+        .\] 
+        Denoted by Exp($\lambda$). It's CDF is given by \[
+        f_X(x) = \begin{cases}
+            0 & x \le 0 \\
+            1 - e^{-\lambda x} & x > 0 \\
+        \end{cases}
+        .\]  The expected value and variance is given by \[
+        E(X) = \frac{1}{\lambda} \qquad var(X) = \frac{1}{\lambda^2}
+        .\] 
+
+    \end{tcolorbox}
+\end{document}
