@@ -1,0 +1,193 @@
+\documentclass[5pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{multicol}
+\usepackage{proof}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[margin=0.5in]{geometry}
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+
+\usepackage[most]{tcolorbox}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\tcbset{
+colback=gray!5,
+colframe=blue!50!white,
+coltitle=black,
+arc=0pt,
+boxrule=-0.1mm,
+fonttitle=\bfseries,
+coltitle=black,
+left=2.5mm,
+leftrule=1mm,
+right=3.5mm,
+colbacktitle=black!10!white,
+toptitle=0.75mm,
+bottomtitle=0.5mm,
+}
+\begin{document}
+\begin{multicols}{2}
+    \subsection*{Common Patterns when dealing with Limits}
+    \begin{enumerate}
+        \item Polynomials.
+            Solve them as normal. Try to simplify them as much as possible.
+        \item Triginometric.
+            Try to split the expression into sine/consine, and match the input
+            in the numerator and denominator.
+        \item L'Hopital.
+            Only use when subtituting results in an indeterminate form.
+        \item Difference in Square Roots.
+            Say you have \[
+                \lim_{n \to \infty}\left( \sqrt{n - 1} - n \right) 
+            .\] 
+            You usually want to multiply and divide the expression by the sum of
+            the square root. This would make the expression much easier to
+            evaluate.
+        \item Expression with exponentiation.
+            Take the logarithm of both sides to bring the exponent down.
+        \item $1^\infty$ form.
+            Usually can be simplified to Euler's number limit definition.
+    \end{enumerate}
+    \subsection*{General Framework for proving a Convergence for a Monotonic
+    Sequence}
+    \begin{enumerate}
+        \item Come up with some candidate limits where the sequence converge.
+        \item Show that the sequence is monotonic using induction
+        \item Show that it is bounded using induction.
+        \item Apply Theorem and conclude
+    \end{enumerate}
+    \begin{tcolorbox}[title=Squeeze Theorem]
+        Let $a_n,b_n,c_n$ be sequences. If  \[
+        b_n \le  a_n \le c_n
+        \] 
+        for all $n$, and $b_n \to L$, $c_n \to L$, then $a_n \to L$.
+    \end{tcolorbox}
+    \begin{tcolorbox}[title=Continuous Function Theorem for Sequences]
+        Let $\{a_n\}$ be a sequence. If $a_n \to L$ and $f$ is a function that
+        is continuous at $L$, then $f(a_n) \to f(L)$.
+    \end{tcolorbox}
+    \begin{tcolorbox}[title=Monotone Convergence Theorem]
+       For a monotonous sequence (those that is non-decreasing/non-increasing)
+       that is bounded, the sequence is convergent.
+   \end{tcolorbox} 
+   \begin{tcolorbox}[title=Commonly Found Limits]
+       \begin{enumerate}
+           \item $
+           lim_{n \to \infty} \frac{\ln n}{n} = 0 \\
+           $
+        \item $
+            lim_{n \to \infty} x^{\frac{1}{n}} = 0 \\
+            $
+        \item$ 
+            lim_{n \to \infty} \left( 1 + \frac{x}{n} \right)^n  = e^x \\
+            $
+        \item $ 
+            lim_{n \to \infty} \sqrt{n}^n  = 1 \\
+            $
+        \item $ 
+            lim_{n \to \infty} x^n  = 0, \quad |x| < 1 \\
+            $
+        \item $
+            lim_{n \to \infty} \frac{x^n}{n!}  = 0 \\
+            $
+       \end{enumerate}
+   \end{tcolorbox}
+   \begin{tcolorbox}[title=Geometric Series]
+       In general, an infinite geometric series that converges is given by \[
+           \sum_{n=1}^{\infty} ar^{n-1} = \frac{a}{1-r}
+       .\] 
+       A geometric series converges only if $|r| < 1$. Otherwise, it diverges.
+   \end{tcolorbox}
+
+   \subsection*{General Framework for Testing Series Convergence}
+  \begin{enumerate}
+      \item Non-alternating Series
+          \begin{enumerate}
+              \item n-th Term Divergence Test. 
+                  Always start with this. If the result is not zero, then immediately
+                  divergent. Otherwise, proceed.
+              \item Ratio/Root Test.  
+                  Ratio test is good for factorials, while Root is good for
+                  exponentials
+              \item Comparison Test or Limit Comparison Test. Useful for Expression
+                  with an oscilating term.
+              \item Alternating Series Test.
+          \end{enumerate}
+      \item Alternating Series
+          \begin{enumerate}
+              \item n-th Term Divergence Test. 
+              \item Alternating Series Test. 
+                \item Ration/Root Test for checking absolute convergence.
+          \end{enumerate}
+  \end{enumerate} 
+   \begin{tcolorbox}[title= n-th Term Convergence Test]
+       A series $\sum a_n$ converges if and only if $a_n \to 0$. A sequence diverge if
+       $\lim_{n \to \infty} a_n$ does not exist or is different from zero.
+   \end{tcolorbox}
+   \begin{tcolorbox}[title=The Integral Test (Extra JIC)]
+       Let $\{a_n\} $ be a sequence of positive terms. Suppose we model $\{a_n\}
+       = f(n)$ that is continuous, positive, decreasing function of $x$ for all
+       $x \ge N$. Then, the series $\sum_{n=N} a_n$ and $\int_N a_n$ both
+       diverge or both converge.
+   \end{tcolorbox}
+   \begin{tcolorbox}[title=Comparison Test]
+       Let $\sum a_n, \sum b_n, \sum c_n$ be some series with nonnegative terms
+       that for some integer $N$, \[
+       b_n \le a_n \le c_n
+       \] 
+       for all $n \ge N$. Then, if 
+       \begin{enumerate}
+           \item $\sum c_n$ converge, then $\sum a_n$ converge as well.
+            \item $\sum b_n$ diverge, then $\sum a_n$ diverge as well.
+       \end{enumerate}
+   \end{tcolorbox}
+   \begin{tcolorbox}[title=Limit Comparison Test]
+       Let $a_n > 0$ $b_n >0$ for all $n$. We define $c$ as \[
+           \lim_{n \to \infty} \frac{a_n}{b_n} = c
+       .\] 
+       Then, 
+       \begin{enumerate}
+           \item $c \neq 0$ implies that both $\sum a_n, \sum b_n$ diverge or
+               converge.
+           \item $c = 0$ and $\sum b_n$ converge, then $\sum a_n$ converge as
+               well.
+           \item $c = \infty$ and $\sum b_n$ diverge implies that $\sum a_n$ diverge
+       \end{enumerate}
+   \end{tcolorbox}
+\begin{tcolorbox}[title=Ratio Test]
+    Let $\sum a_n$ be some series. Then,  \[
+        \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right| = p
+    .\] 
+    If $p < 1$, the series converges absolutely. If $p > 1$ or infinite, the
+    series is divergent. $p = 1$ is inconclusive.
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=Root Test]
+    Let $\sum a_n$ be some series and  \[
+        \lim_{n \to  \infty} \sqrt[n]{|a_n|} = p
+    .\] 
+    If $p < 1$, the series converges absolutely. If $p > 1$ or infinite, the
+    series is divergent. $p = 1$ is inconclusive.
+\end{tcolorbox}
+\begin{tcolorbox}[title=Alternating Series Test]
+    If $a_n \ge 0$ and $a_n$ monotonically decreases to 0, then the alternating
+    series  $\sum_{n=1}^\infty (-1)^n a_n$
+\end{tcolorbox}
+\begin{tcolorbox}[title=Conditional Convergence]
+    For any convergent series that is not absolutely convergenct, the series is
+    conditionally convergent.
+\end{tcolorbox}
+\end{multicols}
+\end{document}

@@ -1,0 +1,101 @@
+\documentclass[5pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{multicol}
+\usepackage{proof}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+
+\usepackage[most]{tcolorbox}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\tcbset{
+colback=gray!5,
+colframe=blue!50!white,
+coltitle=black,
+arc=0pt,
+boxrule=-0.1mm,
+fonttitle=\bfseries,
+coltitle=black,
+left=2.5mm,
+leftrule=1mm,
+right=3.5mm,
+colbacktitle=black!10!white,
+toptitle=0.75mm,
+bottomtitle=0.5mm,
+}
+\begin{document}
+\section*{Chapter 5: Interpolation}
+We'll start out with polynomial interpolation, which is basically try to fit a
+polynomial such that it matches the given data points (we'l skip over trig and
+rational interpolations in this course.)
+
+In general, for a polynomial of degree $d$, a solution exists when the number of
+the given data points is no more than $d + 1$, and the solution is unique as
+long as there is exactly $d+1$ points. These all depends on the basis matrix.
+One can choose any basis, each with their own advantages and disadvatages. I'll
+start with the monomial basis matrix, also known as the Vandermonde matrix. It
+looks something like this: \[
+X = \begin{pmatrix} 
+    1 & x_0 & x_0^2 & \cdots & x_0^d \\
+    1 & x_1 & x_1^2 & \cdots & x_1^d \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    1 & x_n & x_n^2 & \cdots & x_n^d \\
+\end{pmatrix} 
+= \begin{pmatrix} 
+    M_0(x_0) & M_1(x_0) & M_2(x_0) & \cdots & M_d(x_0) \\
+    M_0(x_1) & M_1(x_1) & M_2(x_1) & \cdots & M_d(x_1) \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    M_0(x_n) & M_1(x_n) & M_2(x_n) & \cdots & M_d(x_n) \\
+\end{pmatrix} 
+.\] 
+This looks like 
+
+\begin{align*}
+    p(x) &= a_0 + a_1x^2+ \ldots + a_n x^d \\
+    &=  X \overline{a}
+.\end{align*}
+
+\paragraph{Example}
+Find the polynomial that fit the points $(-2,-27),(0,-1),(1,0)$.
+\[
+\begin{pmatrix} 
+    1 & x_0 & x_0^2 \\
+    1 & x_1 & x_1^2 \\
+    1 & x_2 & x_2^2 \\
+\end{pmatrix} 
+\begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix} 
+=\begin{pmatrix} y_1 \\ y_2 \\ y_3 \end{pmatrix} 
+.\] 
+\[
+\begin{pmatrix} 
+    1 & -2 & 4  \\
+    1 & 0 & 0 \\
+    1 & 1 & 1 \\
+\end{pmatrix} 
+\begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix} 
+=
+\begin{pmatrix} -27 \\ -1 \\ 0 \end{pmatrix} 
+.\] 
+
+Let's consider another basis: the Langrange. S
+
+
+
+
+
+Consider another basis: the Newton.
+\end{document}

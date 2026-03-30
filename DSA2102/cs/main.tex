@@ -1,0 +1,86 @@
+\documentclass[5pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{multicol}
+\usepackage{proof}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[margin=0.5in]{geometry}
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+
+\usepackage[most]{tcolorbox}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\tcbset{
+colback=gray!5,
+colframe=blue!50!white,
+coltitle=black,
+arc=0pt,
+boxrule=-0.1mm,
+fonttitle=\bfseries,
+coltitle=black,
+left=2.5mm,
+leftrule=1mm,
+right=3.5mm,
+colbacktitle=black!10!white,
+toptitle=0.75mm,
+bottomtitle=0.5mm,
+}
+\begin{document}
+\begin{multicols}{2}
+    \begin{tcolorbox}[title=Accuracy vs Precision]
+        \begin{enumerate}
+            \item Precision: Number of significant bits stored behind the
+                decimal.
+            \item Accuracy: How close is our output to the true value. 
+        \end{enumerate}
+    \end{tcolorbox}
+    \begin{tcolorbox}[title= Common Algorithm Time Complexity]
+        \begin{enumerate}
+            \item Multiplying a matrix with a scalar: $O(n)$
+            \item Multiplying a $m \times n$ matrix with a $n \times k$ matrix:
+                $O(mnk)$
+            \item Dot Product of two vectors of size $n$: $O(n)$ 
+            \item Multiplication of tridiagonal square matrices: $O(n)$
+            \item Multiplication of upper triangular matrices: $O(n^3)$
+            \item Forward Elimination: $O(n^3)$
+            \item Backward Subtitution: $O(n^2)$ 
+            \item Gramm-Schmidtt: $O(n^3)$ 
+            \item Householder: $O(\frac{4}{3}n^3)$
+             \item Givens: $O(n^3)$ \\ Better for matrices with special
+                 structure.
+        \end{enumerate}
+    \end{tcolorbox}
+    \subsection*{Forward Subtitution and Backward Eliminiation}
+    The algorithm for solving simple square matrices. Forwards subtitution
+    reduces the matrix into an upper triangular form, and the Backward
+    elimination eliminates the non-pivot entries.
+    \begin{enumerate}
+        \item Forward Subtitution 
+            \begin{enumerate}
+                \item Iterate over each columns.
+                \item For a column $i$, subtract each row below the $i$-th row by
+                    the $i$-th row such that the $i$-th row entry on the $i$-th
+                    column is zero.
+            \end{enumerate}
+        \item Backward Elimination
+            \begin{enumerate}
+                \item Iterate over columns from n to $1$. (decreasing)
+                \item For each row above the $i$-th row, subtract it such that
+                    there is only one entry in the column.
+            \end{enumerate}
+    \end{enumerate}
+
+\end{multicols}     
+\end{document}

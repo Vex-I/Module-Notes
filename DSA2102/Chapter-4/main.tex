@@ -1,0 +1,94 @@
+\documentclass[5pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{multicol}
+\usepackage{proof}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+
+\usepackage[most]{tcolorbox}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\tcbset{
+colback=gray!5,
+colframe=blue!50!white,
+coltitle=black,
+arc=0pt,
+boxrule=-0.1mm,
+fonttitle=\bfseries,
+coltitle=black,
+left=2.5mm,
+leftrule=1mm,
+right=3.5mm,
+colbacktitle=black!10!white,
+toptitle=0.75mm,
+bottomtitle=0.5mm,
+}
+\begin{document}
+    To recap, for a square matrix $A$ and a non-zero vector $x$: 
+    \begin{align*}
+        Ax &= \lambda x \\
+        0 &= (A - \lambda I)x\\
+        p(\lambda) &= \det(A - \lambda I) = 0
+    .\end{align*}
+    The solution to  $x$ is called the Eigenvectors, and solution to $\lambda$
+    are the Eigenvalues. $p(\lambda)$ is called the characteristic polynomial.
+    $A - \lambda I$ is singular. This leads to the spectral theorem for symetric
+    real matrices, which states that 
+    \begin{tcolorbox}[title=Spectral Theorem for Symettric Real Matrices]
+        A Symetric real matrix $A$ can be diagonallized using an orthonormal
+        basis of vectors. \[
+        A = Q D Q^T
+        .\] 
+    \end{tcolorbox}
+    This means that for any symetric real matrix, there always exists an
+    orthonormal basis ($Q$) such that A is a simple diagonal matrix.
+    Intuitively, this is changing the basis for $A$, such that $A$ becomes
+    simple scaling.
+
+    In numerical computation, the bulk of finding the root of a polynomial can
+    be computed by computing the Eigenvalues, and such problem is classified
+    as an eigenvalue problem. We do this by computing the eigenvalues using teh
+    companion matrix, which is just the matrix form of the (monic) characteristic
+    polynomial, given by \[
+    C_n = 
+    \left(
+    \begin{matrix}
+        0 & 0 & \cdots &0& -c_0 \\
+        1 & 0 & \cdots &0& -c_1 \\
+        0 & 1 & \cdots &0& -c_2 \\
+        \vdots & \vdots & \ddots & \vdots & \vdots \\
+        0 & 0 & \cdots &1& -c_{n-1} \\
+    \end{matrix}
+    \right)
+    .\] 
+
+    For small polynomial ($n \le 4$), we can just use the readily available
+    formula to compute the root. The Abel-Ruffini Theorem states that there is
+    no general formula for finding the root of polynomial of power $\ge  5$
+    (TODO: Read), which is very common, and we would need to rely on algorithm
+    to solve the eigenvalues of the matrix. We'll discuss three of them in this course.
+
+    For such a matrix, we would like to simply
+
+
+
+
+    \section*{Root Finding Algorithms}
+    \subsection*{Newton Iteration}
+    THe idea behind Newton Iteration is that we 
+
+\end{document}

@@ -1,0 +1,61 @@
+\documentclass[5pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{multicol}
+\usepackage{proof}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+
+\usepackage[most]{tcolorbox}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\tcbset{
+colback=gray!5,
+colframe=blue!50!white,
+coltitle=black,
+arc=0pt,
+boxrule=-0.1mm,
+fonttitle=\bfseries,
+coltitle=black,
+left=2.5mm,
+leftrule=1mm,
+right=3.5mm,
+colbacktitle=black!10!white,
+toptitle=0.75mm,
+bottomtitle=0.5mm,
+}
+\begin{document}
+\begin{tcolorbox}[title=Question 1]
+    Use the Intermediate Value theorem to find an interval of length one that
+    contains a root of the equation, 
+    \begin{enumerate}
+        \item $x^3 = 9$
+        \item $\ln x + x^2 = 3$
+    \end{enumerate}
+\end{tcolorbox} 
+\begin{tcolorbox}[title=Question 2]
+\end{tcolorbox} 
+\begin{tcolorbox}[title=Question 3]
+\end{tcolorbox} 
+\begin{tcolorbox}[title=Question 4]
+\end{tcolorbox} 
+\begin{tcolorbox}[title=Question 5]
+\end{tcolorbox} 
+\begin{tcolorbox}[title=Question 6]
+\end{tcolorbox} 
+\begin{tcolorbox}[title=Question 7]
+\end{tcolorbox} 
+\end{document}
