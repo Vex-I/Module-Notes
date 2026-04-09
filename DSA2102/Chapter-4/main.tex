@@ -38,7 +38,8 @@ toptitle=0.75mm,
 bottomtitle=0.5mm,
 }
 \begin{document}
-\section*{Recap}
+\section*{Chapter 4 | Eigenvalue Problems}
+\subsection*{Recap}
     To recap, for a square matrix $A$ and a non-zero vector $x$: 
     \begin{align*}
         Ax &= \lambda x \\
@@ -61,7 +62,7 @@ bottomtitle=0.5mm,
     Intuitively, this is changing the basis for $A$, such that $A$ becomes
     simple scaling.
 
-    \section*{Polynomials and Eigenvalues}
+    \subsection*{Polynomials and Eigenvalues}
 
     In numerical computation, the bulk of finding the root of a polynomial can
     be computed by computing the Eigenvalues, and such problem is classified
@@ -93,6 +94,8 @@ bottomtitle=0.5mm,
     Before doing so, let's take a look at the question of conditioning, uniqueness and
     existence of eigenvectors and eigenvalues in the real field. In general, 
     \begin{enumerate}
+        \item For an upper triangular matrix, the diagonal entries is the
+            eigenvalues.
         \item All symetric matrices have atleast one eigenvector and
             eigenvalues.
         \item Every scalar multiple of an eigenvector is an eigenvector.
@@ -123,21 +126,30 @@ bottomtitle=0.5mm,
     \end{enumerate}
     The condition number (2-norm) for a non-defective eigenvalue problem is
     $X^{-1} A X = D$ is given by the condition numebr (2-norm) of $X$.
-    \section*{Singular Value Decomposition}
+    \subsection*{Singular Value Decomposition}
     \begin{tcolorbox}[title=Singular Value Decomposition]
         For $A \in \mathbb{R}^{m \times n}$, \[
             A = U \Sigma V^T
         ,\] 
         where $U \in \mathbb{R}^{m \times m}$ and $V \in \mathbb{R}^{n \times
         n}$ are orthogonal. The matrices $A^{T}A$ and $AA^{T}$ are real symetric
-        and orthogonally diagonalizable.$\Sigma$ is a diagonal matrix consisting
+        and orthogonally diagonalizable. $\Sigma$ is a diagonal matrix consisting
         of the singular value of A (the square root of $AA^{T}$ and $A^{T}A$
         non-zero eigenvalues.)
     \end{tcolorbox}
     When decomposing a matrix with SVD, we typically try to solve either
-    $A^{T}A$ or $AA^{T}$ for their eigenvalues and eigenvectors. Then, we 
+    $A^{T}A$ or $AA^{T}$ for their eigenvalues and eigenvectors. Typically, we
+    choose whichever is least complex to compute.
 
+    After calculating the eigenvalues and eigenvector, and forming either $U$ or
+     $V$, we would need to form the other base. 
 
+     \subsection*{Power Iteration and Variants}
+     The idea behind power iteration is quite simple: For a matrix $A$ that we
+     would like to compute the eigenvalues and eigenvectors, we start with a
+     vector $v_0$ (random, most like,) and repeatedly applying $Av_i$
+     iteratively. 
 
-
+     If  $A$ is non-defective and the largest eigenvalue is strictly larger than
+     the other ones, we can analyze the algorithm's convergence quite easily: 
 \end{document}

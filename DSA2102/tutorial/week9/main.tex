@@ -38,6 +38,7 @@ toptitle=0.75mm,
 bottomtitle=0.5mm,
 }
 \begin{document}
+\section*{Tutorial 6}
 \begin{tcolorbox}[title=Question 1]
     Use the Intermediate Value theorem to find an interval of length one that
     contains a root of the equation, 
@@ -199,8 +200,10 @@ Breakdown teh expression:
 A^{T}u = \lambda v, \quad Av = \lambda u
 .\] 
 Then, \[
-    AA^{T}u \lambda^{-1} = \lambda u 
-.\] 
+    A A ^{T} u= \lambda ^2 u \quad A^{T} A v = \lambda ^2 v
+,\] 
+thus showing that $\lambda$ is a singular value of  $A$.
+
 \begin{tcolorbox}[title=Question 7]
     The Fibonnaci Sequence $F_1,F_2,\ldots$is defined by $F_1= 1, F_2 = 1$, and
     $F_n = F_{n-1} + F_{n-2}$ for $n \ge  3$. Define $A$ by $A(x,y)^T =
@@ -208,7 +211,7 @@ Then, \[
     \begin{enumerate}[label=(\alph*)]
          \item Show that $A^n(0,1)^T = (F_n, F_{n+1})^T$ for each positive
              integer $n$.
-         \item Find t he eigenvalues of $A$.
+         \item Find the eigenvalues of $A$.
          \item Find the basis of $\mathbb{R}^2$ consisting of eigenvectors of
              $A$.
          \item Use part $(c)$ to compute $A^n(0,1)^T$. Conclude that  \[
@@ -221,4 +224,46 @@ Then, \[
          .\] 
     \end{enumerate}
 \end{tcolorbox} 
+Starting with the first part. We'll use induction to prove it such. The base
+case is provided by $n=1$, and 
+ \begin{align*}
+    A \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1 \\ 1
+\end{pmatrix} =\begin{pmatrix} F_1 \\ F_2 \end{pmatrix} 
+.\end{align*}
+For the inductive steps, let $n=m+1$. Asumming that the proposition holds for $n=m$
+\begin{align*}
+    A^{m+1}\begin{pmatrix} 0 \\ 1 \end{pmatrix} &= A \begin{pmatrix} F_m \\
+F_{m+1} \end{pmatrix}  \\
+    &=  \begin{pmatrix} F_{m+1} \\ F_m + F_{m+1} \end{pmatrix} \\
+    &= \begin{pmatrix} F_{m+1} \\ F_{m+2} \end{pmatrix}  
+.\end{align*}
+so the proposition holds. For the eigenvalues of $A$, suppose that  \[
+    A \begin{pmatrix} x \\ y \end{pmatrix} = 
+    \begin{pmatrix} \lambda_0 & 0 \\ 0 & \lambda_1\end{pmatrix} 
+    \begin{pmatrix} x \\ y \end{pmatrix} 
+.\] Then,
+\[
+\begin{pmatrix} 
+    y \\ x + y
+\end{pmatrix} 
+=
+\begin{pmatrix} \lambda_0 & 0 \\ 0 & \lambda_1\end{pmatrix} 
+\begin{pmatrix} x \\ y \end{pmatrix} 
+.\] 
+\[
+\lambda^2 x - \lambda x - x = 0 \implies \lambda^2 - \lambda - 1 = 0
+.\] 
+Solving the equation would yield the eigenvalues. We find \[
+\lambda = \frac{1 \pm \sqrt{5} }{2}
+.\] 
+We can then proceed to find the eigenvectors of $A$. From our previous
+calculation, we find 
+\[
+\begin{pmatrix} 
+    y \\ x + y
+\end{pmatrix} 
+=
+\begin{pmatrix} \lambda_0 & 0 \\ 0 & \lambda_1\end{pmatrix} 
+\begin{pmatrix} x \\ y \end{pmatrix} 
+.\] 
 \end{document}

@@ -1,0 +1,115 @@
+\documentclass[5pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{multicol}
+\usepackage{proof}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+
+\usepackage[most]{tcolorbox}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\tcbset{
+colback=gray!5,
+colframe=blue!50!white,
+coltitle=black,
+arc=0pt,
+boxrule=-0.1mm,
+fonttitle=\bfseries,
+coltitle=black,
+left=2.5mm,
+leftrule=1mm,
+right=3.5mm,
+colbacktitle=black!10!white,
+toptitle=0.75mm,
+bottomtitle=0.5mm,
+}
+\begin{document}
+    \section*{Chapter 3 | Least Square Problems} 
+    \subsection*{Introduction}
+    Suppose that you have a system $Ax = b$, where $A$ is a $n\times m$ matrix
+    where $n > m$. In such a system, we usually say that the system is
+    overdetermined, and a solution wouldn't exist. Often times when presented
+    with a problem like this, such as fitting a line over a couple of data
+    points (elaborated further in later chapters concering interpolation,) we
+    would like to find some solution that best fit our data.
+
+    Let's take a look at our previous example $Ax = b$. Suppose for
+    $\mathbb{R}^{2}$we write them out as such:  \[
+        \begin{pmatrix} 
+            a_{11} & a_{12}  \\
+            a_{21} & a_{22}  \\
+            a_{31} & a_{32}  \\
+            a_{41} & a_{42} \\
+        \end{pmatrix}    
+        \begin{pmatrix} 
+            x_1 \\ 
+            x_2
+        \end{pmatrix} 
+        = \begin{pmatrix} y_1 \\ y_2 \\ y_3 \\y_4 \end{pmatrix} 
+    .\] 
+     Here, we couldn't find an exact solution to the problem. But, we can come
+     up with some solution that minimize the 'error'. Such a problem is called a
+     least square problem. 
+
+     To understand how we could solve such a problem, we'll analyze $Ax = b$
+     once more. If we think of $A$ as as some plane in $\mathbb{R}^{2}$, we can
+     think of the existance of a solution for $Ax = b$ as that  $b$ lies
+     somewhere within the span of $A$. Likewise, if there is no solution, $b$
+     lise somewhere outside the span of $A$. Notice, however, that we can find
+     some vector $y$ within the span of $A$ ($A\hat{x} = y$) such that $b = y + e$ for some
+     vector $e$ taht satisfies  $A^{T}e = 0$ ($e$ is perpendicular to  the plane
+     of $A$). As such, we can write the following: \[
+     0 = A^{T}e = A^{T}(b - y) = A^{T}(b - A \hat{x})
+     .\] 
+     \[
+     A^{T}b = A^{T}A \hat{x}
+     .\] 
+     We can interpret the solution as finding the vector $\hat{x}$ that
+     minimizes $e$ (as it so happens for $\mathbb{R}^{2}$), the minimum is just
+     the projection of $b$ unto the plane.
+     \subsection*{QR Factorization}
+     A QR factorization is simply decomposing a vector into $A = QR$, where $Q$ 
+     is a orthogonal matrix $Q = Q^{T}$ and $R$ is an upper triangular matrix.
+     We could interpret this as taking an orthonormal basis $Q$ and constructing
+     $A$ using $R$. Generally, it is preffered over LU as it is more stable and
+     does not require pivoting as LU does.
+
+    When solving a $QR$ factorization, we have a couple of options: 
+     \begin{enumerate}
+        \item Gramm-Schmidtt Algorithm
+        \item Householder Reflections 
+        \item Givens Rotation
+        \item Singular Value Decomposition (SVD)
+    \end{enumerate}
+    Overall, Gramm-Schmidtt is not preffered as it quite slow. We'll talk about
+    the first three in this chapter, and $SVD$ in the later chapters concerning
+    eigenvalue problems.
+    \begin{tcolorbox}[title=Gramm-Schmidtt]
+         The idea behind Gramm-Schmidtt is to construct a set of orthonormal
+         vectors by considering each columns of the matrix $A$, and iteratively
+         subtracting it by it's projections on each previous columns and
+         normalizing it, while storing the dot product of each vectors in an
+         upper triangular matrix.
+    \end{tcolorbox}
+
+    As one might expect, when doing the calculation by relying on previous
+    results of computing each row of $Q$, error would be magnified. As such,
+    when calculating a QR decomposition using this method, we would design the
+    algorithm to iterate by rows instead.
+    \subsection*{Rotations and Reflections}
+
+\end{document}

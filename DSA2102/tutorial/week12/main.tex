@@ -1,0 +1,170 @@
+\documentclass[5pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{multicol}
+\usepackage{proof}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+
+\usepackage[most]{tcolorbox}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\tcbset{
+colback=gray!5,
+colframe=blue!50!white,
+coltitle=black,
+arc=0pt,
+boxrule=-0.1mm,
+fonttitle=\bfseries,
+coltitle=black,
+left=2.5mm,
+leftrule=1mm,
+right=3.5mm,
+colbacktitle=black!10!white,
+toptitle=0.75mm,
+bottomtitle=0.5mm,
+}
+\begin{document}
+\begin{tcolorbox}[title=Question 1]
+    Verify the expressions \[
+    \cos \left( \frac{(k + \frac{1}{2})\pi}{n+1} \right) 
+    , k = 0,1,2,\ldots,n\] 
+    and \[
+    \cos \left( \frac{(2k-1)\pi}{2m} \right) 
+    , k = 1,2,3,\ldots,m\] 
+    determine the same set of values when $m = n + 1$
+\end{tcolorbox}
+Suppose some $m = n + 1$. Then,
+\[
+\cos \left( \frac{(2k + 1)\pi}{2m} \right) =
+\cos \left( \frac{(2k-1)\pi}{2m} \right) 
+.\] 
+
+We'll reindex the LHS. Define $j = k + 1$, such that the expression is
+preserved. We'll have
+\[
+\cos \left( \frac{(j - 1)\pi}{m} \right) =
+\cos \left( \frac{(2k-1)\pi}{2m} \right) 
+.\] 
+
+The LHS is defined for values of $j = 1,2,3,\ldots,n+1$. The RHS is also defined
+for values of $k = 1,2,3,\ldots,m$. Since $m=n+1$, both of these expressions
+represents the same set of values.
+\begin{tcolorbox}[title=Question 2]
+    Use calculus to verify that the first three Legendre polynomials are
+    orthogonal to eachother.
+\end{tcolorbox}
+Recall that the first three Legendre polynomial is given by \[
+    P_0(x) = 1, P_1(x) = x, P_2(x) = \frac{1}{2}(3x^2 -1)
+.\] 
+A polynomial is said to be orthogonal it's inner product is zero. \[
+    \int_{-1}^{1} f(x)g(x)dx = 0
+.\] 
+\subsubsection*{$P_0$ and $P_1$}
+\begin{align*}
+    \int_{-1}^{1} 1 \cdot x dx = \left[\frac{x^2}{2}\right]_{-1}^{1} = 0
+.\end{align*}
+\subsubsection*{$P_0$ and $P_2$}
+\begin{align*}
+    \int_{-1}^{1} 1 \cdot \frac{1}{2}(3x^2 - 1) dx &= \frac{1}{2}\left( 3
+    \int_{-1}^{1} x^2dx - \int_{-1}^{1} dx  \right) \\
+                                                   &= \frac{1}{2}\left[ 3 \left(
+                                                   \frac{x^3}{3}\right) - x
+                                               \right]_{-1}^{1} \\
+                                               &= 0 
+.\end{align*}
+\subsubsection*{$P_1$ and $P_2$}
+\begin{align*}
+    \int_{-1}^1 x \cdot \frac{1}{2}(3x^2 - 1) dx 
+    &= \frac{1}{2} \int_{-1}^1 (3x^3 - x) dx\\
+    &= \frac{1}{2} \left[ 3\int_{-1}^{1}x^3dx - \int_{-1}^{1} xdx  \right] \\
+    &= \frac{1}{2} \left[ 3 \left( \frac{x^4}{4} \right) -
+    \left(\frac{x^2}{2}\right) \right]_{-1}^{1} = 0
+.\end{align*}
+\begin{tcolorbox}[title=Question 3]
+    The Chebyshev nodes on a general interval $[a,b]$ are given  \[
+        x_k = \frac{1+b}{b} + \frac{b - a}{a} \cos \left(
+        \frac{(k+\frac{1}{2})\pi}{n+1} \right) 
+    ,k = 0,1,2,\ldots,n.\] 
+    List the Chebyshev interpolation nodes $x_0,x_1,\ldots,x_n$ in the following
+    interval:
+    \begin{enumerate}[label=\alph*)]
+        \item $[-1,1], n = 5$
+        \item $[-2,2], n = 3$
+        \item $[2,12], n = 5$
+    \end{enumerate}
+\end{tcolorbox}
+We follow the formula and list the nodes for each interval. For $[-1,1]$, we
+have  \[
+x_k = \cos\left( \frac{(k+\frac{1}{2})\pi}{6} \right) = \cos\left( \frac{(2k +
+1)\pi}{12} \right)
+.\] 
+Thus, \[
+    x_0 = \cos \left( \frac{\pi}{12} \right) 
+x_1 = \cos\left( \frac{\pi}{4} \right) x_2 = \cos\left( \frac{5}{12}\pi \right)  
+x_3 = \cos\left( \frac{7}{12} \pi  \right) 
+x_4 = \cos \left( \frac{9}{12} \pi \right) 
+x_5 = \cos \left( \frac{11}{12} \pi \right) 
+.\] 
+
+FOr $[-2,2]$ \[
+x_k  = 2\cos \left( \frac{(2k+1)\pi}{8} \right) 
+.\] 
+Thus, 
+\[
+x_0 = 2\cos \left( \frac{\pi}{8} \right) 
+x_1 = 2\cos \left( \frac{3\pi}{8} \right) 
+x_2 = 2\cos \left( \frac{5\pi}{8} \right) 
+x_3 = 2\cos \left( \frac{7\pi}{8} \right) 
+.\] 
+For $[2,12]$,  \[
+    x_k = 7 + 5 \cos \left( \frac{(2k + 1) \pi}{12}\right) 
+.\] 
+Thus, \[
+x_0 = 7 + 5 \cos\left( \frac{\pi}{12} \right) 
+x_1 = 7 + 5 \cos\left( \frac{3\pi}{12} \right) 
+x_2 = 7 + 5 \cos\left( \frac{5\pi}{12} \right) 
+\]
+\[
+x_3 = 7 + 5 \cos\left( \frac{7\pi}{12} \right) 
+x_4 = 7 + 5 \cos\left( \frac{9\pi}{12} \right) 
+x_5 = 7 + 5 \cos\left( \frac{11\pi}{12} \right) 
+.\] 
+
+\begin{tcolorbox}[title=Question 4]
+    Consider the data points $(-1,1),(1,2),(2,3).$ 
+    \begin{enumerate}[label=\alph*)]
+        \item Write down the system of linear equations that determines the
+            piecewise quadratic interpolant that is twice differentiable at $x =
+            1$
+        \item Wirte down the linear equation that determines the natural cubic
+            splines interoplant for these data.
+    \end{enumerate}
+\end{tcolorbox}
+\begin{tcolorbox}[title=Question 5]
+    Let $T_0,\ldots,T_n$ denote the Chebyshev polynomials.
+    \begin{enumerate}[label=\alph*)]
+        \item Compute $T_4,T_5,T_6$ using the recurrence relation.
+        \item Verivy that the roots of $T_4$ are claimed.
+        \item Using calculus, compute the local extrema of $T_4$
+    \end{enumerate}
+\end{tcolorbox}
+\begin{tcolorbox}[title=Question 6]
+    Write down the interpolating polynomial that interpolates $f(x) = \cos x$ on
+    the interval $[0,2\pi]$ using 6 Chebyshev nodes. SHow atleast 4 significand
+    figures for each coeffecient. 
+\end{tcolorbox}
+\end{document}

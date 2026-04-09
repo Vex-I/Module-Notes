@@ -176,36 +176,62 @@ bottomtitle=0.5mm,
               }e^{-\frac{(x-\mu)^2}{2\sigma^2}}
          .\]
          Denoted by N($\mu,\sigma^2$).
-         N(0,1) is called a standard normal, denoted by $Z ~N(0,1)$. It's PDF
+         N(0,1) is called a standard normal, denoted by $Z \sim N(0,1)$. It's PDF
          and CDF is given by  \[
-             \phi(X) = \frac{1}{\sqrt{2\pi}e^{-\frac{x^2}{2}} }
+             \phi(X) = \frac{1}{\sqrt{2\pi}e^{\frac{x^2}{2}} }
          .\] 
          \[
              \Phi(x) = \frac{1}{\sqrt{2\pi} } \int_{-\infty}^{x}
              e^{-\frac{y^2}{2}}dy
          .\] 
     \end{tcolorbox}
+    \begin{tcolorbox}[colframe=blue!20!white]
+        As one might infer from it's definition, a standard normal distribution
+        is resembles a bell-curve around the value 0. This would make it easier
+        to understand it's properties.
+    \end{tcolorbox}
     \begin{tcolorbox}[title=Normal Distribution Property, colframe=blue!20!white]
-        If $Y ~ N(\mu,\sigma^2)$, then $E(Y) = \mu$ and $var(Y) = \sigma^2$. We
+        If $Y \sim  N(\mu,\sigma^2)$, then $E(Y) = \mu$ and $var(Y) = \sigma^2$. We
         can write the relation between $Y$ and $Z$ like so: \[
         P(a \le Y\le b) = P(\frac{a-\mu}{\sigma} \le Z \le \frac{b -
         \mu}{\sigma}) = \Phi(\frac{b-\mu}{\sigma}) - \Phi(\frac{a-\mu}{\sigma})
         .\] 
     \end{tcolorbox}
+    \begin{tcolorbox}[colframe=blue!20!white]
+        In problems involving a normal distribution, it is often useful to
+        standardize the distribution first.
+    \end{tcolorbox}
     \begin{tcolorbox}[title=Standard Normal Distribution Properties,
         colframe=blue!20!white]
         \begin{enumerate}
             \item $P(Z \ge 0) = P(Z \le 0) = \frac{1}{2}$
-            \item $-Z ~ N(0,1)$ 
+            \item $-Z \sim N(0,1)$ 
             \item $P(Z\le x) = 1 - P(Z > x)$
             \item $P(Z \le -x) = P(Z > x)$
             \item If $Y~N(\mu,\sigma^2)$, then $X = \frac{x- \mu}{\sigma^2} ~
                 N(0,1)$
             \item If $X ~ N(0,1)$, then $Y=aX + b ~ N(b,a^2)$
         \end{enumerate}
-        
     \end{tcolorbox}
-
+    \begin{tcolorbox}[title=de Moivre-Laplace Theorem]
+        Suppose a random variable $X \sim B(n,p)$. Then, for any $a < b$,  \[
+        P\left( a < \frac{X - np}{\sqrt{npq}  } < b\right)  \to \Phi (b) -
+        \Phi (a)
+        \] 
+        as $n \to \infty$, or $B(n,p) \to  N(np,npq)$. 
+    \end{tcolorbox}
+    \begin{tcolorbox}[colframe=blue!20!white]
+        This approximation of a binomial distribution generally holds for values
+        of $npq \ge 10$. Since The binomial distribution is discreete, we would
+        also need to address potential continuity problems.
+    \end{tcolorbox}
+    \begin{tcolorbox}[title=Continuity Correction, colframe=blue!20!white]
+        If $X \sim B(n,p)$, then \[
+        P(X = k) = P(k - \frac{1}{2} < X < k + \frac{1}{2})
+        P(X \le k) = P(X \le  k +\frac{1}{2})
+        P(X \ge k) = P(X \ge k -\frac{1}{2})
+        .\] 
+    \end{tcolorbox}
     \begin{tcolorbox}[title=Exponential Distribution]
         A random variable is said to be exponentially distributed if the PDF is
         given by \[
@@ -220,8 +246,40 @@ bottomtitle=0.5mm,
             1 - e^{-\lambda x} & x > 0 \\
         \end{cases}
         .\]  The expected value and variance is given by \[
-        E(X) = \frac{1}{\lambda} \qquad var(X) = \frac{1}{\lambda^2}
+        E(X) = \frac{1}{\lambda} \qquad var(X) = \frac{1}{\lambda^2`}
         .\] 
 
     \end{tcolorbox}
+    \begin{tcolorbox}[title=Memorylessness Property, colframe=blue!20!white]
+        The memorylessness property states that for a distribution $X$, previous
+        failures/elapsed time does not affect further trials. This effectively
+        means that we can choose any 'starting point' and the result after any
+        arbitrary $x$ would be the same throughout. For a continuous
+        distribution, only the exponential distribution exhibit this property.
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[title=Gamma Distribution]
+         A random variable $X$ is said to follow a gamma distribution with
+         parameters $\alpha$ and $\gamma$ , and is denoted by $X \sim 
+         \Gamma(\alpha, \lambda )$. The PDF only exists for $x \ge  0$ and its
+         formula is \[
+             f(x) = \frac{\lambda e^{\lambda x}(\lambda x)^{\alpha -
+             1}}{\Gamma(\alpha)}
+         .\] 
+         where $\alpha, \lambda > 0$, and $\Sigma (\alpha)$, the gamma function,
+         is defined by \[
+             \Gamma(\alpha) = \int_{0}^{\infty} e^{-t} t^{\alpha - 1} dt
+         .\] 
+    \end{tcolorbox}
+    \begin{tcolorbox}[colframe=blue!20!white]
+        If $X \sim \Sigma (\alpha, \lambda)$, then the expectation and variance
+        are \[
+        E(x) = \frac{\alpha}{\lambda} \quad \text{ and } \quad \text{Var}(X) =
+        \frac{\alpha}{\lambda^2}
+        .\] 
+    \end{tcolorbox}
+\section{Joint Probability Distribution}
+    
+\section{Expectation Properties}
+\section{Limit Theorems}
 \end{document}
