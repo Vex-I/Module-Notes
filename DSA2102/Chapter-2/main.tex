@@ -1,0 +1,164 @@
+\documentclass[5pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{multicol}
+\usepackage{proof}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+
+\usepackage[most]{tcolorbox}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\tcbset{
+colback=gray!5,
+colframe=blue!50!white,
+coltitle=black,
+arc=0pt,
+boxrule=-0.1mm,
+fonttitle=\bfseries,
+coltitle=black,
+left=2.5mm,
+leftrule=1mm,
+right=3.5mm,
+colbacktitle=black!10!white,
+toptitle=0.75mm,
+bottomtitle=0.5mm,
+}
+\begin{document}
+\section{System of Linear Equation}
+This chapter primarily consists of the application of matrices in solving system
+of linear equations. Since a lot of this chapter is just review of linear
+algebra, I 'll omit a lot of it, and focus on the application instead.
+\subsection*{Matrix Operations}
+In practice, matrix is simply a 2-dimension array, and operations on and between
+matrices can be summed up as iterating over the array. Let's talk addition
+first, which is performed on matrices of the same size. To compute it, we simply
+need to iterate on each entries of the matrix and add a corresponding entry on
+the other matrix. For a matrix $A$ of size $m \times n$, we would need to
+perform $m*n$ operations.
+
+Suppose matrices  $A_{m \times p}$ and $B_{p \times n}$. A multiplication
+between them would involve, for each entry in the  new matrix of size $m \times
+n$, an initialization followed by $2p - 2$ operations (addition and
+multiplication). Thus, we have a total of $nm(2p-1)$ total operations.
+
+However, we can further optimize this for matrices with special structures.
+Consider an upper triangular matrix $B_{n \times n}$ and some matrix $A_{m
+\times n}$. We can further minimize the operations into $mn\frac{n+1}{2}$
+additions, and $mn\frac{\left(  n-1 \right) }{2}$ multiplications.
+
+Furthermore, for a multiplication between two lower triangular matrix, the total
+operations would be $n(n+1)(n+2)/6$ multiplication and $(n-1)n(n+1) / 6$
+additions.
+
+\subsection*{Norms and Errors}
+There are a couple of norms that each can be used to measure the `size` of a
+vector, and consequently the error of matrix operations. This course would cover
+the euclidiean norm (2-norm), the p-norm and the infinity norm.
+
+Let's begin with the general case of p-norm. It is defiend by  \[
+\|x\|_p = \left(\sum_{i = 1}^{n} |x_{i}|^p  \right)^{\frac{1}{p}}
+.\] 
+This way, you can form the euclidian norm \[
+\|x\|_2 = \left(\sum_{i = 1}^{n} |x_{i}|^2  \right)^{\frac{1}{2}}
+.\] 
+and the infinity norm, which is the limit as $p \to \infty$. It yields \[
+    \|x\|_{\infty} = \max_i |x_i|
+,\] 
+as in, it is defined by the largest entry. Generalizing it to matrices, we can
+defien the following:
+\[
+    \|A\|_1 = \text{max absolute column sum} 
+\]
+\[
+    \|A\|_{\infty} = \text{max absolute row sum}
+\]
+\[
+    \|A\|_{2} = \text{max singular value in $A$}
+.\] 
+
+Now that we have a way of quantifying the size of a matrix, we can calculate the
+condition number of a matrix. Recall the definition of the condition number: \[
+\kappa = \frac{|\text{forward error}|}{|\text{backward error}|} = 
+\frac{\left|\frac{y}{\Delta y}\right|}{\left|\frac{x}{\Delta x}\right|}
+.\] 
+Rewriting it in terms of the transformation $A(x) = b$, \[
+\kappa =  \frac{\|\Delta x\| \|b\|}{\|\Delta b\| \|x\|}
+= \frac{\|A^{-1}(\Delta b)\| \|A(x)\|}{\|\Delta b\| \|x\|}
+=\frac{\|A^{-1}\|\|\Delta b\| \|A\|\|x\|}{\|\Delta b\| \|x\|}
+.\] 
+\[
+\kappa \le \|A^{-1}\|\|A\|
+.\] 
+
+\subsection*{LU Factorization}
+For an LU factorization, we have two main algorithms: 
+\begin{enumerate}
+    \item Gaussian  Elimination.
+    \item Cholseky Algorithm
+\end{enumerate}
+In general, Cholesky is the one that is preferred, as it is a bit more
+effecient and stable. Regardless, Gaussian Elimination is worth knowing.
+
+Gaussian Elimination is the method most people do by hand. It involves forming
+an upper triangular matrix, while storing the row operations in a matrix form.
+The resulting upper triangualr matrix is $U$, whilst the inverse of the row
+operation matrix is $L$. Writing the algorithm for a Gaussian Elimination is
+also quite straightforward: simple use forward subtitution to form the upper
+triangular matrix, whilst accumulating the operations in a seperate $L$ vector
+of the same size.
+
+One might notice that when the pivot entry of a matrixis zero, or very  close to
+zero, the algorithm might run into some problem. To remedy this, we turn to
+pivoting, as in swapping the rows of a matrix such that zero divisions is
+avoided. The standard way to do this is that, for every column of a matrix, we
+pick the row that contains the largest entry below the diagonal, and swap that
+row as the pivot row for that iteration. This adds extra complexity in the
+accumulation of $L$, since it now has to include pivoting matrices.
+
+\subsection*{Cholesky Factorization}
+Cholesky Factorization can only be done on matrices that is positive definite
+and symmetric. It is defined as a matrix that has a nonnegative determinant on
+all it'sleading principal submatrices.
+
+The idea of a Cholseky Factorization can be demostratedd as such: Suppose a
+symetric positive definite matrix $A_{3\times 3}$. It's LU facotrization is can be written
+as \[
+    A = \begin{pmatrix} 
+    l_{11} & 0 & 0 \\ 
+    l_{21} & l_{22} & 0 \\
+    l_{31} & l_{32} & l_{33} \\
+\end{pmatrix} 
+\begin{pmatrix} 
+    l_{11} & l_{21} & l_{31} \\ 
+    0 & l_{22} & l_{32} \\
+    0 & 0 &l_{33}    
+\end{pmatrix} 
+.\] 
+We can compute each $l_{ij}$ based on the entry of $A$. Specifically, we can
+write the following: 
+\begin{align*}
+    &a_{11} = l_{11}^2 \\
+    &a_{21} = l_{11}l_{21} \\
+    & a_{31} = l_{11}l_{31} \\
+    & a_{22} = l_{21}l_{22} \\
+    & a_{32} = l_{21}l_{31} + l_{22}l_{32} \\
+    &a_{33} = l_{31}^2 + l_{32}^2 + l_{33}^2 
+.\end{align*}
+We'd solve for each value of $l_{ij}$, which can be done following the above
+sequence.
+
+\end{document}

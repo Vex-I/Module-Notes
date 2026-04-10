@@ -1,0 +1,121 @@
+\documentclass[5pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{multicol}
+\usepackage{proof}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+
+\usepackage[most]{tcolorbox}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\tcbset{
+colback=gray!5,
+colframe=blue!50!white,
+coltitle=black,
+arc=0pt,
+boxrule=-0.1mm,
+fonttitle=\bfseries,
+coltitle=black,
+left=2.5mm,
+leftrule=1mm,
+right=3.5mm,
+colbacktitle=black!10!white,
+toptitle=0.75mm,
+bottomtitle=0.5mm,
+}
+\begin{document}
+\section{Computer Arithmetics}
+This section concerns itself mostly with how a computer does arithmetics and
+the considerations of a computation problem. We'll cover the concept of
+precision and accuracy first. Consider this: 
+
+\begin{tcolorbox}[title=Precision vs Accuracy]
+    \textit{Accuracy} of the output of the calculation is the measure of how far
+    it is from the true value. The \textit{precision} of a calculation refers to
+    how many significant digits (significand) that the output has, regardless
+    of it's accuracy.
+\end{tcolorbox}
+
+Let's talk a little bit about the problems we are trying to solve. A problem is
+refered to as well-posed if a solution exist, unique and varies continuously
+with the problem data. Do note that this property is seperate from our algorithm
+and although we would like our problems to be well-posed, some problems aren't.
+
+Let's talk a bit more on the computation itself. In general, we would like a
+computation to not deviate far from the true value. Of course, having it be zero
+is largely unrealistic in parctice, since in order fo that to happen, we would
+like to already know the true value, and as such have no need for calculation.
+
+This deviation from the true value, which we would call the error, largely
+derive from two main sources: The error that arises from the data itself, and
+the error that arises from our computation. 
+
+Take as an example, the computation that one would do when calculating the
+surface area of earth. To simplify the computation, we model the earth as a
+perfect sphere, and as such \[
+    A = 4\pi r^2
+\] 
+applies. Suppose that we are given the value of $\hat{r}$ as the radius of the
+earth. Then, we might arive a some value value $\hat{A}$. However, this value
+might deviate from the true value for a number of reasons: 
+\begin{enumerate}
+    \item Inaccuracy in the computation due to rounding and truncation.
+    \item Inaccuracy in the given data ($\hat{r}$)
+\end{enumerate}
+The first one is cinsidered computational error, while the second belongs to data
+error. Since we are more interested in the factor we can control, we would be
+focusing more on the first one.
+
+When talking about error, we refer to the absolute difference between our
+solution and the true value as the forward error. Similarly, we refer tio the
+absolute difference in the input is refered to as a backward error.
+
+Generally, when designing an algorithm to solve a problem, we would like our
+problems to be \textit{stable}. As in, small pertrubation in the input would
+likewise cause small variance in the output. We quantify this using the
+condition number \[
+    \kappa = \left| \frac{\text{forward error}}{\text{backward error}}\right|
+.\] 
+We can also say that \[
+| \text{forward error} | = \kappa \times | \text{backward error} |
+.\] 
+As in, the condition number is the multiplier of error. We generally wan this
+number to be as low as possible, though in most cases, the minimum is one. 
+
+Do note that the condition number is a property  of your algorithm, not hte
+problem itself. A problem is said to be well conditioned if the condition number
+is small. Similarly a problem is called ill-conditioned if the condition number
+is large.
+
+\subsection*{Floating Point Arithmetics}
+
+At it's core, computer is a bunch of ones and zeros. To oversimplify a bit, the
+process involved in computations requires a way to represents numbers in a
+format that is precise, compact and minimizes errors. The standard way of doing
+so is through a floating point system. Consider the following sequence of
+characters in 1's and 0's: \[
+    0.00000000.00000000000000000000000
+.\] 
+The above is a sequence of numbers in base-2 of length 32. A (single) precision
+floating point system represents number in the above format. While there are
+other format, this chapter would only cover this format, and also the half
+precision floating point, which consists of 16 digits instead of 32.
+
+The first digit, represents the sign of the number, with 0 being positive and 1
+being negative. The second set of digits, which consists of 8 digits, determines
+the exponent of the digit. The third represents the significand of the number.
+\end{document}

@@ -38,7 +38,7 @@ toptitle=0.75mm,
 bottomtitle=0.5mm,
 }
 \begin{document}
-\section*{Chapter 4 | Eigenvalue Problems}
+\section{Eigenvalue Problems}
 \subsection*{Recap}
     To recap, for a square matrix $A$ and a non-zero vector $x$: 
     \begin{align*}
@@ -142,8 +142,14 @@ bottomtitle=0.5mm,
     choose whichever is least complex to compute.
 
     After calculating the eigenvalues and eigenvector, and forming either $U$ or
-     $V$, we would need to form the other base. 
+     $V$, we would need to form the other base. To see this, recall that
+     $A^{T}A$ is positive semi-definite, and can be written as \[
+         A^{T}A = VDV^{T} = V(\Sigma^{T} \Sigma)V^{T}.
+    \]
+    For each column of $V$ we have  $A^{T}A v_i = \sigma_i^2 v_i$. Multiplying
+    both side with $A$ yields 
 
+     \subsection*{Rootfinding Algorithm}
      \subsection*{Power Iteration and Variants}
      The idea behind power iteration is quite simple: For a matrix $A$ that we
      would like to compute the eigenvalues and eigenvectors, we start with a

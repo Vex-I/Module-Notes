@@ -38,7 +38,7 @@ toptitle=0.75mm,
 bottomtitle=0.5mm,
 }
 \begin{document}
-    \section*{Chapter 3 | Least Square Problems} 
+    \section{Least Square Problems} 
     \subsection*{Introduction}
     Suppose that you have a system $Ax = b$, where $A$ is a $n\times m$ matrix
     where $n > m$. In such a system, we usually say that the system is
@@ -79,8 +79,21 @@ bottomtitle=0.5mm,
      A^{T}b = A^{T}A \hat{x}
      .\] 
      We can interpret the solution as finding the vector $\hat{x}$ that
-     minimizes $e$ (as it so happens for $\mathbb{R}^{2}$), the minimum is just
-     the projection of $b$ unto the plane.
+     minimizes $e$ (as it so happens for $\mathbb{R}^{2}$, the minimum is just
+     the projection of $b$ unto the plane.)
+
+     Notice the aforementioned expression \[
+     A^{T}b = A^{T}A\hat{x}
+     .\] 
+     We can rearrange it into the following: \[
+         (A^{T}A)^{-1}A^{T}b = \hat{x}
+     .\] 
+     We define \[
+        A^{+} = (A^{T}A)^{-1}A^{T}
+     .\] 
+     Where $A^{+}$ is the pseudoinverse of $A$. It can be shown that for any
+     $n\times m$ matrix $A$, $A$ has a pseudoinverse that is positive.
+
      \subsection*{QR Factorization}
      A QR factorization is simply decomposing a vector into $A = QR$, where $Q$ 
      is a orthogonal matrix $Q = Q^{T}$ and $R$ is an upper triangular matrix.
@@ -98,6 +111,7 @@ bottomtitle=0.5mm,
     Overall, Gramm-Schmidtt is not preffered as it quite slow. We'll talk about
     the first three in this chapter, and $SVD$ in the later chapters concerning
     eigenvalue problems.
+
     \begin{tcolorbox}[title=Gramm-Schmidtt]
          The idea behind Gramm-Schmidtt is to construct a set of orthonormal
          vectors by considering each columns of the matrix $A$, and iteratively
@@ -111,5 +125,59 @@ bottomtitle=0.5mm,
     when calculating a QR decomposition using this method, we would design the
     algorithm to iterate by rows instead.
     \subsection*{Rotations and Reflections}
+
+    Let's start with Householder Relfections. In short, a Householder reflection
+    is an algorithm that, for each vector column in a matrix, try to reflect it
+    such that it makes it orthogonal, then storing the reflector in a upper
+    triangular matrix.   
+
+    Before going further, let's  discuss as to what it means for a vector to be
+    reflected. Suppose some vector $\hat{b} \in \mathbb{R}^2$ that we wish to
+    reflect in such a way that it is in the span of $e_x$. To do so, the easiet
+    way is to find some line $\hat{w}$ that bisects the angle that $\hat{x}$
+    makes with the $x$ axis, and subtract two times the vector $\hat{v}$ that is
+    perpindicular to that line from $\hat{b}$. So esentially, reflecting is
+    subtracting two times the perpendicular element of our choosen reflector,
+    from $\hat{b}$.
+
+    In a Householder Reflection, we wish to do a relfection on each vector
+    column of the matrix such that the entries below the pivot is zero'd out. To
+    compute such a reflection, we follow \[
+        H_i = I - \frac{\hat{v}\hat{v}^{T}}{\hat{v}^{T}\hat{v}}
+    .\] 
+    We'll then solve for $\hat{v}$ such that the expression \[
+        H\hat{a}_i = \alpha e_i
+    s\] 
+    is statisfied. We'll repeat for each collumn until we have $R$, and we set
+     $Q = H_1H_2\ldots H_n$.
+
+     Even though this method is generally faster, for sparse matrices, or those
+     with special structure, a Givens Rotation might be easier to perform.
+     Contrary to a Householder Reflection, which seeks to zero out every single
+     entry under the pivot in one go, a Givens rotation instead calculates a
+     raotaion matrix that would zero out each individual entries. 
+
+     Rotating a vector is another way to achieve the same effect, as they both
+     preserve the norm. Going back to the first example, a vector $\hat{b}$ can
+     be moved unto the span of $e_x$ by rotating it, instead of a reflection. To
+     do so, we multiply the vector $\hat{b}$ by the rotation matrix \[
+     R(\theta) = \begin{pmatrix} 
+         \cos \theta &  \sin \theta \\ -\sin \theta & \cos \theta \\
+     \end{pmatrix} 
+     .\] 
+     To do construct the matrix, we'll need to compute the sine and cosine of
+     the rotation. Suppose that $\hat{b} = \begin{pmatrix} x, y \end{pmatrix} $.
+     Then, we have \[
+      \sin \theta = \frac{y}{\sqrt{x^2+y^2} }, \quad \cos \theta =
+      \frac{x}{\sqrt{x^2+y^2} }
+     .\] 
+     For larger vectors, a intuitive way we can think of it is as 'adjusting' a
+     line such that it lies only in one axis, and doing so by moving it one axis
+     at a time.
+
+     In dering the QR decomposition, we do this  rotation for each entry below
+     the pivot, until we arrive at $R$, whilst accumulating the  $Q$
+
+    
 
 \end{document}

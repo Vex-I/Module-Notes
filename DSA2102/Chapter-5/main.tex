@@ -38,17 +38,25 @@ toptitle=0.75mm,
 bottomtitle=0.5mm,
 }
 \begin{document}
-\section*{Chapter 5: Interpolation}
+\section{Interpolation}
 We'll start out with polynomial interpolation, which is basically try to fit a
-polynomial such that it matches the given data points (we'l skip over trig and
+polynomial such that it matches the given data points (we'll skip over trig and
 rational interpolations in this course.)
 
 In general, for a polynomial of degree $d$, a solution exists when the number of
 the given data points is no more than $d + 1$, and the solution is unique as
-long as there is exactly $d+1$ points. These all depends on the basis matrix.
-One can choose any basis, each with their own advantages and disadvatages. I'll
-start with the monomial basis matrix, also known as the Vandermonde matrix. It
-looks something like this: \[
+long as there is exactly $d+1$ points. Computing the polynomial depends on the
+basis matrix. One can choose any basis, each with their own advantages and
+disadvatages. Here, we'll be covering the monomial, Langrange and Newton basis.
+
+In general, a monomial basis is computaionally unstable due to ill conditioned
+matrices, but conceptually, they are quite simple. Likewise, the Langrange basis
+is easy to implement, but computationally expensive, and quite rigid, requiring
+recalculating the whole thing for any additional points. Newton is the preferred
+method, as well will see.
+
+I'll start with the monomial basis matrix, also known as the
+Vandermonde matrix. It looks something like this: \[
 X = \begin{pmatrix} 
     1 & x_0 & x_0^2 & \cdots & x_0^d \\
     1 & x_1 & x_1^2 & \cdots & x_1^d \\
@@ -63,7 +71,6 @@ X = \begin{pmatrix}
 \end{pmatrix} 
 .\] 
 This looks like 
-
 \begin{align*}
     p(x) &= a_0 + a_1x^2+ \ldots + a_n x^d \\
     &=  X \overline{a}
@@ -91,11 +98,41 @@ Find the polynomial that fit the points $(-2,-27),(0,-1),(1,0)$.
 \begin{pmatrix} -27 \\ -1 \\ 0 \end{pmatrix} 
 .\] 
 
-Let's consider another basis: the Langrange. S
+Let's consider another basis: the Langrange Basis. It is defined as follows:
+Suppose that you have some points $(x_1,x_1), \ldots, (x_{n}, y_{n})$. For each
+of these points, we form the function \[
+\ell_i (x) = \prod_{k = 0, k \neq i}^{n} \frac{x - x_k}{x_{i} - x_k}  
+.\] 
+Then, we form the polynomial \[
+P(x) = \sum_{i = 0}^{n} y_{i} \ell_i (x)
+.\] 
+In matrix form, this is the equivalent of the system \[
+    P(x) = L y^{T}
+.\] 
+\[
+P(x) = \begin{pmatrix} \ell_1 \\ \vdots \\ \ell_n \end{pmatrix} 
+\begin{pmatrix} y_1 \\ \vdots \\ y_n \end{pmatrix}^{T}
+.\] 
+Let's take a look at $\ell_i (x)$ first. We can see this as an indicator
+function, that takes on the value of $1$ when $x = x_i$ and $0$ otherwise. From
+here, we can see that $P(x)$  constructed from a langrange basis is simply the
+summation of these indicator functions terms scaled by the corresponding value
+of $y_i$. What you would arrive at is a continuous polynomial that returns the
+value of $y_i$ at $x_i$.
+
+\paragraph{Example} Take the example for the Vandermonde matrix. We have 
+\begin{align*}
+    \ell_1 (x) &= \frac{x(x-1)}{6} \\
+    \ell_2 (x) &= \frac{(x + 2)(x-1)}{-2}  \\
+    \ell_3 (x) &= \frac{(x + 2)x}{-1}  \\
+    P(x) &= -\frac{27}{6}x(x-1) + \frac{1}{2}(x+2)(x-1)
+.\end{align*}
+Consider another basis: the Newton Basis.
 
 
 
 
+\subsection*{Piecewise Interpolation}
+\subsection*{Orthogonal Polynomials}
 
-Consider another basis: the Newton.
 \end{document}
